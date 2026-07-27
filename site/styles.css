@@ -91,6 +91,10 @@ h2 { font-size: 26px; margin-bottom: 8px; }
 .product-actions { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 16px; font: 12.5px var(--mono); }
 .license-note { margin-top: 16px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); background: rgba(124,108,255,.06); font-size: 13px; }
 .license-note strong { color: var(--text); }
+.rust-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 18px; align-items: stretch; }
+.rust-product::before { background: linear-gradient(90deg, var(--accent2), var(--accent)); }
+.rust-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.rust-metrics .metric { display: flex; flex-direction: column; justify-content: center; }
 
 .proof-flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; list-style: none; margin: 4px 0 28px; }
 .proof-flow li { min-width: 0; position: relative; border: 1px solid var(--line); border-radius: 10px; padding: 16px 14px 14px; background: var(--bg2); }
@@ -149,6 +153,8 @@ footer { margin-top: 80px; border-top: 1px solid var(--line); padding: 28px 0 40
   .proof-flow li:not(:last-child)::after { content: "↓"; right: 18px; top: auto; bottom: -14px; }
   .scenario-grid { grid-template-columns: 1fr; }
   .product-grid { grid-template-columns: 1fr; }
+  .rust-grid { grid-template-columns: 1fr; }
   .bench-summary { grid-template-columns: repeat(2, 1fr); }
 }
+@media (max-width: 560px) { .rust-metrics { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .proof-flow li::before { animation: none; opacity: 1; } }
