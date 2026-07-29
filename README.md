@@ -3,6 +3,14 @@
 Static landing site for [Weavatrix](https://github.com/sergii-ziborov/weavatrix) Core, Refactor and
 Online. Plain HTML/CSS/JS, no build step, no framework, no dependencies.
 
+The production copy tracks the current public family:
+
+| Product | Release | License | Boundary |
+| --- | --- | --- | --- |
+| `weavatrix` | 1.0.0, Rust engine 1.0.2 | MIT | 39 read-only, network-free MCP tools |
+| `weavatrix-refactor` | 0.1.3 | MIT | reviewed local source edits and rollback |
+| `weavatrix-online` | 0.3.0 | MIT | explicit source-free network workflows |
+
 Extracted from the main repository (`sergii-ziborov/weavatrix`) so the engine repo stays focused on
 the engine; this repo owns everything the site needs, including its deploy config.
 
@@ -19,7 +27,8 @@ Automatic: push to `main`. Requires a `CLOUDFLARE_API_TOKEN` repository secret (
 Edit permission; add `CLOUDFLARE_ACCOUNT_ID` too if the token sees more than one account). Without
 the secret the workflow skips gracefully.
 
-Manual: `npx wrangler@4 deploy` (after `npx wrangler login` once).
+Manual: `npm run deploy` (after `npx wrangler login` once). Verify the returned
+production deployment and `https://weavatrix.com` after every release-copy update.
 
 ## Checks
 

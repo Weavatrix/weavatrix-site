@@ -56,3 +56,19 @@ test('Refactor is a first-class product surface with the complete tool catalog',
     assert.match(refactor, /atomic/i)
     assert.match(refactor, /rollback/i)
 })
+
+test('published product versions, MIT licenses, and native benchmark stay current', () => {
+    const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
+    const license = readFileSync(join(REPO_ROOT, 'site/license.html'), 'utf8')
+    for (const release of ['Core <small>1.0.0', 'Refactor <small>0.1.3', 'Online <small>0.3.0']) {
+        assert.ok(index.includes(release), `${release} is shown on the product grid`)
+    }
+    assert.match(index, /Weavatrix Rust <small>1\.0\.2/)
+    assert.match(index, /30\.34x/)
+    assert.match(index, /156\.10x/)
+    assert.match(index, /8224CACEA4F10B6B09BB525FCC1E4FFA0A7AF1292CD1C4EC63515A2CF99D7F5A/)
+    assert.doesNotMatch(index, /APACHE-2\.0|SOURCE-AVAILABLE|Online Source License/)
+    assert.match(license, /weavatrix-refactor/)
+    assert.match(license, /weavatrix-online/)
+    assert.doesNotMatch(license, /Apache License|commercial license/)
+})

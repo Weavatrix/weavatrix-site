@@ -13,13 +13,13 @@
 <div class="wrap">
   <a class="back" href="/">← weavatrix.com</a>
   <h1>Privacy Policy</h1>
-  <div class="date">Effective: July 18, 2026</div>
+  <div class="date">Effective: July 30, 2026</div>
 
   <h2>The short version</h2>
   <p>The local Weavatrix MCP is local-first, requires no account, and sends no repository data to us
   by default. Each response includes transient local execution/output/freshness metrics for the caller;
   Weavatrix does not persist, aggregate or transmit them as telemetry. No outbound request path is
-  implemented by the MIT package. Online requests require the separately installed
+  implemented by the native Core package. Online requests require the separately installed
   <code>weavatrix-online</code> product, a configured destination and an explicit tool call.</p>
 
   <h2>What the software processes</h2>
@@ -31,13 +31,13 @@
   By default, no repository data leaves your machine.</p>
 
   <h2>Separate local write product (opt-in)</h2>
-  <p>The MIT Core does not edit application source. The separately installed Apache-2.0
+  <p>The MIT Core does not edit application source. The separately installed MIT
   <code>weavatrix-refactor</code> package can apply a reviewed local edit only after three explicit
   gates: the refactor profile, <code>WEAVATRIX_ALLOW_SOURCE_EDITS=1</code> and a single-use plan
   token. It stores rollback bundles and token state under <code>~/.weavatrix-refactor/</code> and
   performs no network request.</p>
 
-  <p>The built-in TypeScript/JavaScript precision overlay starts package-pinned
+  <p>The JavaScript engine composed by the current Refactor and Online packages can start package-pinned
   <code>typescript-language-server</code>/<code>tsserver</code> processes locally. Automatic type
   acquisition is disabled, child credentials are stripped, and Weavatrix does not invoke repository
   executables, scripts, installers or <code>npx</code>. The overlay may read repository-contained JS/TS
@@ -68,9 +68,9 @@
     embedded URL credentials and fragments are rejected. Merely enabling the group or requesting a
     preview does not upload anything.</li>
   </ul>
-  <p>The MIT core exposes only <code>offline</code> and <code>pinned</code>. Legacy <code>osv</code>,
-  <code>hosted</code>, <code>full</code> and <code>online</code> profile names fail loudly and direct the
-  caller to the separate Online MCP. Enabling Online alone sends nothing.</p>
+  <p>Installing or starting Online alone sends nothing. Network activity belongs
+  to named Online tools and requires an explicitly configured destination;
+  synchronization additionally requires the exact preview confirmation token.</p>
 
   <h2>Optional Weavatrix Hosted preview</h2>
   <p>If you explicitly configure <code>app.weavatrix.com</code> as the sync destination, inspect the
