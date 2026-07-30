@@ -7,10 +7,16 @@ The production copy tracks the current public family:
 
 | Product | Release | License | Boundary |
 | --- | --- | --- | --- |
-| `weavatrix` | 1.0.0, Rust engine 1.0.2 | MIT | 39 read-only, network-free MCP tools |
-| `weavatrix-rust` | 1.0.3 | MIT | embeddable repository-intelligence engine; MCP optional |
-| `weavatrix-refactor` | 0.1.3 | MIT | reviewed local source edits and rollback |
-| `weavatrix-online` | 0.3.0 | MIT | explicit source-free network workflows |
+| `weavatrix` | 1.1.0, Rust engine 2.0.0 | MIT | 39 read-only, network-free MCP tools via Cargo or npm |
+| `weavatrix-rust` | 2.0.0 | MIT | protocol-independent repository-intelligence engine and library |
+| `weavatrix-refactor` | 0.1.5 | MIT | reviewed local source edits and rollback |
+| `weavatrix-online` | 0.3.1 | MIT | explicit source-free network workflows |
+
+The engine recognizes 24 code, contract, configuration, document, and UI-source
+surfaces. The current basic release proof covers a real 185-file repository, a
+short 1,000-call engine load, architecture gates, and 87.81% Rust line coverage.
+The packed and isolated-installed Core 1.1.0 boundary also completed 1,000
+native MCP calls at 172.97 calls/s with zero failures.
 
 Extracted from the main repository (`sergii-ziborov/weavatrix`) so the engine repo stays focused on
 the engine; this repo owns everything the site needs, including its deploy config.

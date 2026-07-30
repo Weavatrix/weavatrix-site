@@ -3,7 +3,7 @@
 // the same 300-line owner-module budget the engine holds itself to.
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import {readFileSync, readdirSync} from 'node:fs'
+import {existsSync, readFileSync, readdirSync} from 'node:fs'
 import {extname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
@@ -33,6 +33,10 @@ test('versioned asset references are current and the hero animation stays determ
     assert.ok(index.includes('href="/styles.css?v=0.3.11-products-1"'), 'the page loads the current product stylesheet without a stale asset')
     assert.ok(index.includes('src="/graph-animation.js?v=0.3.9-hero-graph-6"'), 'the page loads the deterministic hero graph without a stale asset')
     assert.ok(index.includes('src="/hero-field.js?v=0.3.9-hero-field-1"'), 'the page loads the ambient hero field without a stale asset')
+    assert.match(index, /https:\/\/weavatrix\.com\/og-image-v4\.png/)
+    assert.doesNotMatch(index, /og-image-v[123]\.png/)
+    const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
+    assert.match(refactor, /https:\/\/weavatrix\.com\/og-image-v4\.png/)
     const animation = readFileSync(join(REPO_ROOT, 'site/graph-animation.js'), 'utf8')
     assert.doesNotThrow(() => new Function(animation), 'the extracted browser script parses')
     assert.doesNotMatch(animation, /Math\.random/, 'the hero graph layout stays deterministic')
@@ -60,21 +64,29 @@ test('Refactor is a first-class product surface with the complete tool catalog',
 test('published product versions, MIT licenses, and native benchmark stay current', () => {
     const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
     const license = readFileSync(join(REPO_ROOT, 'site/license.html'), 'utf8')
-    for (const release of ['Core <small>1.0.0', 'Refactor <small>0.1.3', 'Online <small>0.3.0']) {
+    const security = readFileSync(join(REPO_ROOT, 'site/security.html'), 'utf8')
+    const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
+    const readme = readFileSync(join(REPO_ROOT, 'README.md'), 'utf8')
+    for (const release of ['Core <small>1.1.0', 'Refactor <small>0.1.5', 'Online <small>0.3.1']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
-    assert.match(index, /weavatrix-rust <small>1\.0\.3/)
+    assert.match(index, /weavatrix-rust <small>2\.0\.0/)
     assert.match(index, /typed analyzers, deterministic snapshots, evidence graphs/)
-    assert.match(index, /MCP is an optional stdio adapter/)
-    assert.doesNotMatch(index, /Weavatrix Rust <small>1\.0\.2/)
-    assert.doesNotMatch(index, /39 MCP tools with no/)
-    assert.match(index, /30\.34x/)
-    assert.match(index, /156\.10x/)
-    assert.match(index, /26\.19/)
-    assert.match(index, /84\.68/)
-    assert.match(index, /24\.82/)
-    assert.match(index, /78B48CD828BBB91C6054771E7B35B27DA0687550D3E820DA2650AFE0E53AF068/)
-    assert.match(index, /8224CACEA4F10B6B09BB525FCC1E4FFA0A7AF1292CD1C4EC63515A2CF99D7F5A/)
+    assert.match(index, /It does not implement an MCP server/)
+    assert.match(index, /cargo install weavatrix/)
+    assert.doesNotMatch(index, /cargo install weavatrix-rust/)
+    assert.match(index, /weavatrix-graph<\/code> 0\.6\.3/)
+    assert.match(index, /124\.65 ms/)
+    assert.match(index, /1,000 hot calls/)
+    assert.match(index, /343\.248 ms/)
+    assert.match(index, /172\.97 calls\/s/)
+    assert.match(index, /p95 11\.201 ms/)
+    assert.match(index, /87\.81%/)
+    assert.match(index, /not a claim about every repository, machine, or workload/)
+    const releaseCopy = [index, security, refactor, readme].join('\n')
+    assert.doesNotMatch(releaseCopy, /Core <small>1\.0\.0|REFACTOR 0\.1\.3|Online <small>0\.3\.0/)
+    assert.doesNotMatch(releaseCopy, /weavatrix-rust <small>1\.0\.[0-9]+|Rust engine: 1\.0\.[0-9]+/)
+    assert.doesNotMatch(releaseCopy, /MCP is an optional stdio adapter/)
     assert.doesNotMatch(index, /APACHE-2\.0|SOURCE-AVAILABLE|Online Source License/)
     assert.match(license, /weavatrix-refactor/)
     assert.match(license, /weavatrix-online/)
@@ -113,6 +125,29 @@ test('homepage publishes the complete native language and repository-surface mat
     for (const surface of requiredSurfaces) {
         assert.ok(index.includes(`<span>${surface}</span>`), `${surface} is listed on the homepage`)
     }
+    assert.equal(requiredSurfaces.length, 24)
+    assert.match(index, /24 supported languages and repository surfaces/)
     assert.match(index, /without\s+pretending that CSS and Rust have the same semantic depth/)
     assert.doesNotMatch(index, /<span>JavaScript<\/span><span>TypeScript<\/span><span>TSX<\/span>/)
+})
+
+test('release metadata and every local page reference resolve', () => {
+    const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
+    const jsonLd = index.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)
+    assert.ok(jsonLd, 'the homepage carries structured software metadata')
+    const metadata = JSON.parse(jsonLd[1])
+    assert.equal(metadata.softwareVersion, '1.1.0')
+    assert.match(metadata.description, /protocol-independent Rust evidence engine/)
+
+    const pages = readdirSync(join(REPO_ROOT, 'site')).filter(name => extname(name) === '.html')
+    for (const page of pages) {
+        const html = readFileSync(join(REPO_ROOT, 'site', page), 'utf8')
+        for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:[?#][^"]*)?"/g)) {
+            const requestPath = match[1]
+            const asset = requestPath === '/'
+                ? 'index.html'
+                : extname(requestPath) === '' ? `${requestPath.slice(1)}.html` : requestPath.slice(1)
+            assert.ok(existsSync(join(REPO_ROOT, 'site', asset)), `${page} references missing ${requestPath}`)
+        }
+    }
 })

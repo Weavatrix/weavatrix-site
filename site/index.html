@@ -4,22 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weavatrix — native repository intelligence for AI coding agents</title>
-<meta name="description" content="Weavatrix gives coding agents a native Rust evidence graph and 39 read-only MCP tools for impact, APIs, architecture, health, search, semantics, and memory.">
-<meta name="keywords" content="MCP server, Model Context Protocol, code graph, blast radius, change impact analysis, AI coding agent, Claude Code, Codex, dependency graph, dead code, clone detection, static analysis, Rust, JavaScript, TypeScript, Python, Go, Java, C#, C++, SQL, GraphQL, Protobuf, Kubernetes, Terraform">
+<meta name="description" content="Weavatrix gives coding agents 39 native, read-only MCP tools backed by a protocol-independent Rust evidence engine across 24 code and configuration surfaces.">
+<meta name="keywords" content="MCP server, Model Context Protocol, code graph, blast radius, change impact analysis, AI coding agent, Claude Code, Codex, dependency graph, dead code, clone detection, static analysis, Rust, JavaScript, JSX, TypeScript, TSX, Python, Go, Java, C#, C, C++, SQL, Bash, Zsh, Swift, Solidity, GraphQL, Protobuf, gRPC, JSON, JSONC, Kubernetes YAML, Terraform, HCL, XML, HTML, Vue, Svelte, CSS, SCSS, Sass, Less, Markdown, MDX, reStructuredText, AsciiDoc">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://weavatrix.com/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Weavatrix">
 <meta property="og:title" content="Weavatrix — give your coding agent the repository map">
-<meta property="og:description" content="A native Rust evidence graph with 39 read-only MCP tools, 30.34x faster cold than the JavaScript engine at the installed-package boundary.">
+<meta property="og:description" content="39 native read-only MCP tools, one reusable evidence graph, 24 code and configuration surfaces, and explicit write and network boundaries.">
 <meta property="og:url" content="https://weavatrix.com/">
-<meta property="og:image" content="https://weavatrix.com/og-image-v3.png">
+<meta property="og:image" content="https://weavatrix.com/og-image-v4.png">
 <meta property="og:image:width" content="1731">
 <meta property="og:image:height" content="909">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Weavatrix — native repository intelligence for coding agents">
-<meta name="twitter:description" content="39 read-only MCP tools in one native Rust evidence graph.">
-<meta name="twitter:image" content="https://weavatrix.com/og-image-v3.png">
+<meta name="twitter:description" content="39 read-only MCP tools backed by one protocol-independent Rust evidence engine across 24 repository surfaces.">
+<meta name="twitter:image" content="https://weavatrix.com/og-image-v4.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -30,10 +30,10 @@
   "name": "Weavatrix",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Windows, macOS, Linux",
-  "description": "Native Rust repository intelligence for coding agents: 39 read-only MCP tools for graphs, impact, APIs, architecture, health, search, semantics, and memory.",
+  "description": "Native repository intelligence for coding agents: 39 read-only MCP tools backed by a protocol-independent Rust evidence engine across 24 repository surfaces.",
   "url": "https://weavatrix.com",
   "downloadUrl": "https://www.npmjs.com/package/weavatrix",
-  "softwareVersion": "1.0.0",
+  "softwareVersion": "1.1.0",
   "license": "https://opensource.org/licenses/MIT",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "author": { "@type": "Person", "name": "Sergii Ziborov", "url": "https://github.com/sergii-ziborov" },
@@ -50,7 +50,7 @@
   <header>
     <div class="mark">
       <svg width="26" height="26" viewBox="0 0 100 100"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
-      WEAVATRIX <span class="badge">1.0.0</span>
+      WEAVATRIX <span class="badge">1.1.0</span>
     </div>
     <nav>
       <a href="#features">Tools</a>
@@ -77,7 +77,7 @@
 <span class="g">$</span> claude mcp add -s user weavatrix -- npx -y weavatrix mcp <span class="p">&lt;repoRoot&gt;</span>
 <span class="c"># same for Codex:</span>
 <span class="g">$</span> codex mcp add weavatrix -- npx -y weavatrix mcp <span class="p">&lt;repoRoot&gt;</span>
-<span class="c"># or install the same engine from crates.io:</span>&#10;<span class="g">$</span> cargo install weavatrix-rust&#10;<span class="g">$</span> weavatrix mcp <span class="p">&lt;repoRoot&gt;</span> --profile=code
+<span class="c"># or install the same MCP product from crates.io:</span>&#10;<span class="g">$</span> cargo install weavatrix&#10;<span class="g">$</span> weavatrix mcp <span class="p">&lt;repoRoot&gt;</span> --profile=code
 
 <span class="c"># then, inside Claude Code:</span>
 <span class="g">›</span> what breaks if I change the auth middleware?
@@ -90,21 +90,21 @@
     <p class="lead product-lead">The native Core is the network-free, source-read-only foundation. Refactor adds reviewed local writes. Online adds an explicitly authorized network connection. All three public packages are MIT.</p>
     <div class="product-grid">
       <article class="product-card core-product">
-        <div class="product-head"><div><span class="product-kicker">NATIVE · FREE · OPEN SOURCE</span><h3>Weavatrix Core <small>1.0.0</small></h3></div><span class="license-chip mit-chip">MIT</span></div>
-        <p>The complete native Rust engine: 39 MCP tools for application maps, exact context, Health, dependencies, duplicates, blast radius, APIs, Git, search, semantic links, memory and architecture ratchets.</p>
-        <ul><li>No network path, source-write path, install script, runtime download or external executable.</li><li>Prebuilt Windows, macOS and glibc Linux binaries for x64 and arm64.</li><li>30.34x faster cold and 156.10x faster warm than the JavaScript engine in the verified installed-package benchmark.</li></ul>
-        <pre><span class="g">$</span> npx -y weavatrix mcp &lt;repoRoot&gt;</pre>
-        <div class="product-actions"><a href="https://www.npmjs.com/package/weavatrix">npm</a><a href="https://github.com/sergii-ziborov/weavatrix">GitHub</a><a href="/license">MIT license</a></div>
+        <div class="product-head"><div><span class="product-kicker">NATIVE · FREE · OPEN SOURCE</span><h3>Weavatrix Core <small>1.1.0</small></h3></div><span class="license-chip mit-chip">MIT</span></div>
+        <p>The native MCP product for coding agents: 39 read-only tools for application maps, exact context, Health, dependencies, duplicates, blast radius, APIs, Git, search, semantic links, memory and architecture ratchets.</p>
+        <ul><li>No network path, source-write path, install script, runtime download or external executable.</li><li>The same native adapter ships through Cargo and npm for Windows, macOS and glibc Linux on x64 and arm64.</li><li>Backed by <code>weavatrix-rust</code> 2.0.0 and <code>weavatrix-graph</code> 0.6.3, with 24 code and repository surfaces.</li></ul>
+        <pre><span class="g">$</span> npx -y weavatrix mcp &lt;repoRoot&gt;&#10;<span class="g">$</span> cargo install weavatrix</pre>
+        <div class="product-actions"><a href="https://crates.io/crates/weavatrix">crates.io</a><a href="https://www.npmjs.com/package/weavatrix">npm</a><a href="https://github.com/sergii-ziborov/weavatrix">GitHub</a><a href="/license">MIT license</a></div>
       </article>
       <article class="product-card refactor-product">
-        <div class="product-head"><div><span class="product-kicker">WRITE LAYER · OPEN SOURCE</span><h3>Weavatrix Refactor <small>0.1.3</small></h3></div><span class="license-chip refactor-chip">MIT</span></div>
+        <div class="product-head"><div><span class="product-kicker">WRITE LAYER · OPEN SOURCE</span><h3>Weavatrix Refactor <small>0.1.5</small></h3></div><span class="license-chip refactor-chip">MIT</span></div>
         <p>A separately installed layer that composes Core and adds 11 MCP tools: nine read-only plan producers plus write-gated apply and rollback.</p>
         <ul><li>Plan producers — rename, move file/symbol, delete-readiness, change-signature, edit-symbol, bulk-replace, organize-imports — emit hash-bound edit plans with honest provenance.</li><li>Applying a plan requires the refactor profile, an edit-enable environment flag and a single-use plan token; rollback needs none, and every apply is reversible.</li><li>Preview → confirm → apply → rollback, all proven against the read-only Core.</li></ul>
         <div class="availability"><b>Availability</b><span>Full refactoring layer · write-gated apply, always reversible</span></div>
         <div class="product-actions"><a href="/refactor">Explore Refactor</a><a href="https://www.npmjs.com/package/weavatrix-refactor">npm</a><a href="https://github.com/sergii-ziborov/weavatrix-refactor">GitHub</a><a href="https://github.com/sergii-ziborov/weavatrix-refactor/blob/main/LICENSE">MIT</a></div>
       </article>
       <article class="product-card online-product">
-        <div class="product-head"><div><span class="product-kicker">NETWORK LAYER · OPEN SOURCE</span><h3>Weavatrix Online <small>0.3.0</small></h3></div><span class="license-chip online-chip">MIT</span></div>
+        <div class="product-head"><div><span class="product-kicker">NETWORK LAYER · OPEN SOURCE</span><h3>Weavatrix Online <small>0.3.1</small></h3></div><span class="license-chip online-chip">MIT</span></div>
         <p>A public connector with 52 MCP tools: 34 local analysis tools, all 11 Refactor tools, and seven Online tools for endpoint status, advisory refresh, malware review, architecture contracts and preview-confirmed graph sync.</p>
         <ul><li>Connects to Weavatrix Cloud or a compatible customer-controlled endpoint.</li><li>Sync is explicit and source-free: no source bodies, snippets, absolute paths, credentials or Git remotes.</li><li><code>preview_sync</code> returns the exact bounded payload and a short-lived token before <code>sync_graph</code> can send anything.</li></ul>
         <div class="availability"><b>Availability</b><span>Public MIT client · Cloud access controlled by endpoint authorization</span></div>
@@ -113,7 +113,7 @@
     </div>
     <p class="license-note"><strong>Clear boundary:</strong> Core, Refactor, and the public Online connector are MIT. Their safety boundaries come from separate packages, capabilities, preview tokens, and explicit runtime configuration.</p>
   </section>
-  <section id="rust"><h2>The reusable Rust engine beneath Core.</h2><p class="lead"><code>weavatrix-rust@1.0.3</code> is the embeddable repository-intelligence crate; <code>weavatrix@1.0.0</code> is the separate prebuilt npm/MCP distribution and currently carries engine 1.0.2.</p><div class="rust-grid"><article class="product-card rust-product"><div class="product-head"><div><span class="product-kicker">EMBEDDABLE · PURE RUST · READ ONLY</span><h3>weavatrix-rust <small>1.0.3</small></h3></div><span class="license-chip mit-chip">MIT</span></div><p>Build repository-aware Rust systems with typed analyzers, deterministic snapshots, evidence graphs and bounded operations.</p><ul><li>Lossless parsing across code, APIs, infrastructure, messaging and repository metadata.</li><li>Optional Git, search, clone, vector, semantic and temporal-memory features layer evidence over the graph.</li><li>MCP is an optional stdio adapter; the library and standalone CLI work without it or any external executable.</li></ul><pre>[dependencies]&#10;weavatrix-rust = { version = "1.0.3", default-features = false }</pre><div class="product-actions"><a href="https://crates.io/crates/weavatrix-rust">crates.io</a><a href="https://docs.rs/weavatrix-rust">docs.rs</a><a href="https://github.com/sergii-ziborov/weavatrix-rust">GitHub</a><a href="https://github.com/sergii-ziborov/weavatrix-rust/blob/main/docs/benchmarks.md">Benchmarks</a></div></article><div class="rust-metrics" aria-label="Installed npm package boundary benchmark"><div class="metric"><strong>26.19–30.34x</strong><span>installed-package cold speedup across release CI and Windows verification</span></div><div class="metric"><strong>84.68–156.10x</strong><span>installed-package warm speedup across both verified runs</span></div><div class="metric"><strong>24.82x</strong><span>lower peak process-tree RSS than JavaScript in release CI</span></div><div class="metric"><strong>39 operations</strong><span>Rust API, standalone CLI and optional MCP projections in the full build</span></div></div></div><p class="method-note">Performance numbers above measure the installed npm/MCP product boundary, not an in-process Rust library call. The gate packs both npm packages into isolated roots, starts fresh processes with empty caches, verifies package and protocol identity, calls identical operations and checks clean shutdown. Graph parity and component-level methodology remain published with the Rust repository.</p></section>
+  <section id="rust"><h2>The protocol-independent Rust engine beneath Core.</h2><p class="lead"><code>weavatrix-rust@2.0.0</code> is the reusable repository-intelligence engine and library. It does not implement an MCP server; <code>weavatrix@1.1.0</code> adds the MCP adapter and ships the same native product through Cargo and npm.</p><div class="rust-grid"><article class="product-card rust-product"><div class="product-head"><div><span class="product-kicker">EMBEDDABLE · PURE RUST · READ ONLY</span><h3>weavatrix-rust <small>2.0.0</small></h3></div><span class="license-chip mit-chip">MIT</span></div><p>Build repository-aware Rust systems from typed analyzers, deterministic snapshots, evidence graphs and 39 bounded operations—without importing a transport into the engine.</p><ul><li>Lossless parsing across 24 code, API, infrastructure, configuration, document and UI-source surfaces.</li><li>Optional Git, search, clone, vector, semantic and temporal-memory capabilities layer evidence over <code>weavatrix-graph</code> 0.6.3.</li><li>Use the Rust facade as a library or the standalone engine CLI; choose <code>weavatrix</code> when the application needs MCP.</li></ul><pre>[dependencies]&#10;weavatrix-rust = { version = "2.0.0", default-features = false }</pre><div class="product-actions"><a href="https://crates.io/crates/weavatrix-rust">crates.io</a><a href="https://docs.rs/weavatrix-rust">docs.rs</a><a href="https://github.com/sergii-ziborov/weavatrix-rust">GitHub</a><a href="https://github.com/sergii-ziborov/weavatrix-rust/blob/main/docs/benchmarks.md">Benchmarks</a></div></article><div class="rust-metrics" aria-label="Weavatrix Rust 2.0.0 basic release verification"><div class="metric"><strong>124.65 ms</strong><span>median full graph build, three basic release runs</span></div><div class="metric"><strong>14.92 ms</strong><span>unchanged repository refresh</span></div><div class="metric"><strong>1.373 ms</strong><span>mean hot graph-stats call across a 1,000-call load run</span></div><div class="metric"><strong>87.81%</strong><span>Rust line coverage release gate</span></div></div></div><p class="method-note">The basic 2.0.0 verification uses the native engine against its committed 185-file repository: 1,503 nodes and 7,067 edges. The short load run is intentionally bounded rather than presented as an exhaustive performance study. Reproducible methodology and component evidence remain published with the Rust repository.</p></section>
   <section id="features">
     <h2>The graph your agent is missing</h2>
     <p class="lead">This is not one report or three fixed workflows: 39 methods project the same reusable graph into the smallest view needed for each task. Grep sees text; Weavatrix sees structure: files, symbols, runtime edges and compile-time coupling — including Rust module paths, Java OOP relationships and project-internal Java receiver call flow. Typed adapters build semantic evidence for code, contracts and infrastructure, while the lossless parser preserves every supported source surface without pretending that CSS and Rust have the same semantic depth. A bounded, package-pinned TypeScript/JavaScript LSP overlay verifies ambiguous references locally without a native compiler or network request.</p>
@@ -131,7 +131,7 @@
       <div class="card"><h3><span class="dot t"></span>Intended architecture ratchet</h3><p><code>get_architecture_contract</code> previews an adaptive Maven/Gradle/monorepo target before an explicit one-time approval; <code>prepare_change</code> and <code>verify_architecture</code> enforce it without silently rewriting policy.</p></div>
       <div class="card"><h3><span class="dot"></span>One-call multi-repo mode</h3><p><code>open_repo</code> switches the active local repository and builds missing graphs through an explicit offline tool call. It also upgrades legacy graphs to edge metadata v2; omit <code>retarget</code> to pin one repository.</p></div>
     </div>
-    <div class="language-surfaces" aria-label="Supported languages and repository surfaces">
+    <div class="language-surfaces" aria-label="24 supported languages and repository surfaces">
       <div class="language-group"><h3>Code and schemas</h3><p>Symbols, imports, ownership, calls and domain evidence where the source can prove them.</p><div class="langs"><span>Rust</span><span>JavaScript / JSX</span><span>TypeScript / TSX</span><span>Python</span><span>Go</span><span>Java</span><span>C#</span><span>C</span><span>C++</span><span>SQL</span><span>Bash / Zsh</span><span>Swift</span><span>Solidity</span></div></div>
       <div class="language-group"><h3>Contracts and configuration</h3><p>Typed API, deployment and configuration facts with exact source spans.</p><div class="langs"><span>GraphQL</span><span>Protobuf / gRPC</span><span>JSON / JSONC syntax</span><span>Kubernetes YAML</span><span>Terraform / HCL</span><span>XML</span></div></div>
       <div class="language-group"><h3>Documents and UI sources</h3><p>Lossless structure and byte-for-byte source recovery for repository context.</p><div class="langs"><span>HTML / Vue / Svelte</span><span>CSS / SCSS / Sass / Less</span><span>Markdown / MDX</span><span>reStructuredText</span><span>AsciiDoc</span></div></div>
@@ -237,48 +237,48 @@ never overwrites active policy.</span></pre>
   </section>
 
   <section id="benchmarks">
-    <h2>Measured where users actually run it: the installed MCP package.</h2>
-    <p class="lead">The release benchmark packs and installs <code>weavatrix@1.0.0</code>
-      with Rust engine 1.0.1 and <code>weavatrix-js@0.3.15</code> into isolated
-      roots, starts fresh MCP processes with empty caches, validates identity,
-      calls the same tools, and checks clean shutdown.</p>
+    <h2>Release proof at the boundary we can reproduce.</h2>
+    <p class="lead">The 2.0.0 engine was exercised against its own repository:
+      185 files became 1,503 nodes and 7,067 typed edges. Three clean graph
+      builds establish the basic latency range; an unchanged refresh, literal
+      search, and 1,000 hot <code>graph_stats</code> calls cover the short-load path.
+      The installed Core 1.1.0 package then passed the same bounded MCP check.</p>
 
     <div class="bench-summary">
-      <div class="metric"><strong>30.34x</strong><span>median of 12 paired cold ratios</span></div>
-      <div class="metric"><strong>156.10x</strong><span>warm MCP tool-call speedup</span></div>
-      <div class="metric"><strong>0 / 0</strong><span>shared JS call targets missing / wrong</span></div>
-      <div class="metric"><strong>87.18%</strong><span>Rust line coverage release gate</span></div>
+      <div class="metric"><strong>124.65 ms</strong><span>median full graph build</span></div>
+      <div class="metric"><strong>14.92 ms</strong><span>unchanged refresh</span></div>
+      <div class="metric"><strong>172.97 calls/s</strong><span>installed Core short-load rate, 0 failures</span></div>
+      <div class="metric"><strong>87.81%</strong><span>Rust line coverage release gate</span></div>
     </div>
 
     <div class="bench-table-wrap">
       <table class="bench-table">
-        <thead><tr><th>Tool</th><th>Rust cold median</th><th>JavaScript cold median</th><th>Speedup</th></tr></thead>
+        <thead><tr><th>Basic check</th><th>Result</th><th>Scope</th></tr></thead>
         <tbody>
-          <tr><td><code>graph_stats</code></td><td>249.87 ms</td><td>7,561.94 ms</td><td><span class="pass">30.73x</span></td></tr>
-          <tr><td><code>list_endpoints</code></td><td>321.07 ms</td><td>7,400.17 ms</td><td><span class="pass">26.15x</span></td></tr>
-          <tr><td><code>find_dead_code</code></td><td>310.45 ms</td><td>9,298.27 ms</td><td><span class="pass">31.81x</span></td></tr>
-          <tr><td><code>run_audit</code></td><td>378.47 ms</td><td>11,583.83 ms</td><td><span class="pass">35.62x</span></td></tr>
+          <tr><td>Full graph build</td><td><span class="pass">118.13 / 124.65 / 137.06 ms</span></td><td>minimum / median / maximum, 3 runs</td></tr>
+          <tr><td>Unchanged refresh</td><td><span class="pass">14.92 ms</span></td><td>same repository revision</td></tr>
+          <tr><td>Literal search</td><td><span class="pass">9.87 ms</span></td><td>native engine operation</td></tr>
+          <tr><td><code>graph_stats</code></td><td><span class="pass">1.373 ms mean</span></td><td>1,000 hot calls</td></tr>
+          <tr><td>Installed Core initialize</td><td><span class="pass">343.248 ms</span></td><td>pack, isolated install, native MCP</td></tr>
+          <tr><td>Installed Core <code>graph_stats</code></td><td><span class="pass">p50 4.337 / p95 11.201 ms</span></td><td>1,000 calls, 0 failures</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="method-note">Measured July 29, 2026: three paired fresh processes
-      per tool and five warm calls per process. Warm medians were 3.17 ms for
-      Rust and 494.83 ms for JavaScript. The raw report has SHA-256
-      <code>8224CACEA4F10B6B09BB525FCC1E4FFA0A7AF1292CD1C4EC63515A2CF99D7F5A</code>.
-      <a href="https://github.com/sergii-ziborov/weavatrix-rust/blob/main/docs/benchmarks.md">Methodology and raw evidence</a>.
-      The successful <a href="https://github.com/sergii-ziborov/weavatrix/actions/runs/30499906647">1.0.0 release CI</a>
-      independently measured 26.19x paired cold, 84.68x warm, and 24.82x lower
-      peak process-tree RSS; its raw artifact SHA-256 is
-      <code>78B48CD828BBB91C6054771E7B35B27DA0687550D3E820DA2650AFE0E53AF068</code>.</p>
+    <p class="method-note">Measured July 30, 2026 with the native 2.0.0 engine
+      executable. This is deliberately a basic release verification plus short
+      load, not a claim about every repository, machine, or workload.
+      <a href="https://github.com/sergii-ziborov/weavatrix-rust/blob/main/docs/benchmarks.md">Methodology and reproducible evidence</a>
+      remain versioned with the engine; <a href="https://github.com/sergii-ziborov/weavatrix/blob/main/docs/benchmarks.md">installed-package evidence</a> remains with Core.</p>
   </section>
 
   <section id="roadmap">
     <h2>Products and roadmap</h2>
     <p class="lead">Core, Refactor, and the public Online connector stay free and MIT. Source edits and networking remain separate, explicitly enabled product boundaries.</p>
     <div class="road">
-      <div class="step now"><span class="tag">NOW · NATIVE · MIT</span><h3>Core 1.0.0</h3><p>The native Rust base: 39 network-free, source-read-only tools spanning repository graphs, impact, APIs, architecture, Git, search, semantics and memory. <a href="https://github.com/sergii-ziborov/weavatrix">Source</a> · <a href="https://www.npmjs.com/package/weavatrix">npm</a>.</p></div>
-      <div class="step now"><span class="tag">NOW · WRITE LAYER · MIT</span><h3>Refactor 0.1.3</h3><p>Eleven evidence-backed refactoring tools: nine plan producers plus write-gated atomic apply and durable rollback. <a href="https://github.com/sergii-ziborov/weavatrix-refactor">Source</a> · <a href="https://www.npmjs.com/package/weavatrix-refactor">npm</a>.</p></div>
-      <div class="step now"><span class="tag">NOW · NETWORK LAYER · MIT</span><h3>Online 0.3.0</h3><p>Composes 52 tools and owns every outbound capability, including advisory refresh, malware review and preview-confirmed source-free sync. <a href="https://github.com/sergii-ziborov/weavatrix-online">Source</a> · <a href="https://www.npmjs.com/package/weavatrix-online">npm</a>.</p></div>
+      <div class="step now"><span class="tag">NOW · NATIVE · MIT</span><h3>Core 1.1.0</h3><p>The native MCP product: 39 network-free, source-read-only tools spanning repository graphs, impact, APIs, architecture, Git, search, semantics and memory. Install the same adapter from <a href="https://crates.io/crates/weavatrix">Cargo</a> or <a href="https://www.npmjs.com/package/weavatrix">npm</a>.</p></div>
+      <div class="step now"><span class="tag">NOW · ENGINE · MIT</span><h3>Rust engine 2.0.0</h3><p>The protocol-independent library beneath Core: 39 bounded operations across 24 repository surfaces, with no MCP server hidden in the engine. <a href="https://github.com/sergii-ziborov/weavatrix-rust">Source</a> · <a href="https://crates.io/crates/weavatrix-rust">crates.io</a>.</p></div>
+      <div class="step now"><span class="tag">NOW · WRITE LAYER · MIT</span><h3>Refactor 0.1.5</h3><p>Eleven evidence-backed refactoring tools: nine plan producers plus write-gated atomic apply and durable rollback. <a href="https://github.com/sergii-ziborov/weavatrix-refactor">Source</a> · <a href="https://www.npmjs.com/package/weavatrix-refactor">npm</a>.</p></div>
+      <div class="step now"><span class="tag">NOW · NETWORK LAYER · MIT</span><h3>Online 0.3.1</h3><p>Composes 52 tools and owns every outbound capability, including advisory refresh, malware review and preview-confirmed source-free sync. <a href="https://github.com/sergii-ziborov/weavatrix-online">Source</a> · <a href="https://www.npmjs.com/package/weavatrix-online">npm</a>.</p></div>
       <div class="step next"><span class="tag">ACCESS-CONTROLLED CLOUD</span><h3>Managed workbench</h3><p><a href="https://app.weavatrix.com">app.weavatrix.com</a> is the managed workbench for source-free evidence, revision history and target-architecture review. Tenant onboarding is controlled while the multi-tenant service evolves.</p></div>
       <div class="step next"><span class="tag">LICENSED SELF-HOSTED</span><h3>Weavatrix Enterprise</h3><p>The same source-free contract can target a customer-hosted deployment with its own authorization, workers and repositories. Deployment and update rights are supplied by written agreement.</p></div>
       <div class="step later"><span class="tag">NEXT</span><h3>CI blast radius</h3><p><code>change_impact</code> as a PR comment: what a change can break, and which of it is untested.</p></div>
