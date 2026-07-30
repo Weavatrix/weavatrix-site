@@ -80,3 +80,39 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     assert.match(license, /weavatrix-online/)
     assert.doesNotMatch(license, /Apache License|commercial license/)
 })
+
+test('homepage publishes the complete native language and repository-surface matrix', () => {
+    const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
+    const requiredSurfaces = [
+        'Rust',
+        'JavaScript / JSX',
+        'TypeScript / TSX',
+        'Python',
+        'Go',
+        'Java',
+        'C#',
+        'C',
+        'C++',
+        'SQL',
+        'Bash / Zsh',
+        'Swift',
+        'Solidity',
+        'GraphQL',
+        'Protobuf / gRPC',
+        'JSON / JSONC syntax',
+        'Kubernetes YAML',
+        'Terraform / HCL',
+        'XML',
+        'HTML / Vue / Svelte',
+        'CSS / SCSS / Sass / Less',
+        'Markdown / MDX',
+        'reStructuredText',
+        'AsciiDoc',
+    ]
+
+    for (const surface of requiredSurfaces) {
+        assert.ok(index.includes(`<span>${surface}</span>`), `${surface} is listed on the homepage`)
+    }
+    assert.match(index, /without\s+pretending that CSS and Rust have the same semantic depth/)
+    assert.doesNotMatch(index, /<span>JavaScript<\/span><span>TypeScript<\/span><span>TSX<\/span>/)
+})

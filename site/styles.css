@@ -131,7 +131,12 @@ h2 { font-size: 26px; margin-bottom: 8px; }
 .pass { color: var(--accent2); }
 .method-note { margin-top: 16px; color: var(--muted); font-size: 13px; }
 
-.langs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.language-surfaces { display: grid; gap: 18px; margin-top: 30px; }
+.language-group { border-left: 2px solid var(--line); padding-left: 16px; }
+.language-group h3 { margin: 0 0 5px; font-size: 14px; }
+.language-group p { margin: 0; color: var(--muted); font-size: 13px; }
+.language-group .langs { margin-top: 11px; }
+.langs { display: flex; flex-wrap: wrap; gap: 10px; }
 .langs span { font: 12.5px var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; }
 
 .road { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
