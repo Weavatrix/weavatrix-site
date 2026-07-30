@@ -8,6 +8,7 @@ The production copy tracks the current public family:
 | Product | Release | License | Boundary |
 | --- | --- | --- | --- |
 | `weavatrix` | 1.0.0, Rust engine 1.0.2 | MIT | 39 read-only, network-free MCP tools |
+| `weavatrix-rust` | 1.0.3 | MIT | embeddable repository-intelligence engine; MCP optional |
 | `weavatrix-refactor` | 0.1.3 | MIT | reviewed local source edits and rollback |
 | `weavatrix-online` | 0.3.0 | MIT | explicit source-free network workflows |
 

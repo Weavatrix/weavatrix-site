@@ -63,7 +63,11 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     for (const release of ['Core <small>1.0.0', 'Refactor <small>0.1.3', 'Online <small>0.3.0']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
-    assert.match(index, /Weavatrix Rust <small>1\.0\.2/)
+    assert.match(index, /weavatrix-rust <small>1\.0\.3/)
+    assert.match(index, /typed analyzers, deterministic snapshots, evidence graphs/)
+    assert.match(index, /MCP is an optional stdio adapter/)
+    assert.doesNotMatch(index, /Weavatrix Rust <small>1\.0\.2/)
+    assert.doesNotMatch(index, /39 MCP tools with no/)
     assert.match(index, /30\.34x/)
     assert.match(index, /156\.10x/)
     assert.match(index, /26\.19/)
