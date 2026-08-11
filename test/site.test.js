@@ -80,10 +80,10 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     const security = readFileSync(join(REPO_ROOT, 'site/security.html'), 'utf8')
     const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
     const readme = readFileSync(join(REPO_ROOT, 'README.md'), 'utf8')
-    for (const release of ['Core <small>1.1.2', 'Refactor <small>1.0.6', 'Online <small>0.3.1']) {
+    for (const release of ['Core <small>1.7.0', 'Refactor <small>1.0.6', 'Online <small>0.3.1']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
-    assert.match(index, /weavatrix-rust <small>2\.0\.2/)
+    assert.match(index, /weavatrix-rust <small>2\.5\.1/)
     assert.match(index, /typed analyzers, deterministic snapshots, evidence graphs/)
     assert.match(index, /It does not implement an MCP server/)
     assert.match(index, /cargo install weavatrix/)
@@ -159,7 +159,7 @@ test('release metadata and every local page reference resolve', () => {
     const jsonLd = index.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)
     assert.ok(jsonLd, 'the homepage carries structured software metadata')
     const metadata = JSON.parse(jsonLd[1])
-    assert.equal(metadata.softwareVersion, '1.1.2')
+    assert.equal(metadata.softwareVersion, '1.7.0')
     assert.match(metadata.description, /protocol-independent Rust evidence engine/)
 
     const pages = readdirSync(join(REPO_ROOT, 'site')).filter(name => extname(name) === '.html')

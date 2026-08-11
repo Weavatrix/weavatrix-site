@@ -7,13 +7,13 @@ The production copy tracks the current public family:
 
 | Product | Release | License | Boundary |
 | --- | --- | --- | --- |
-| `weavatrix` | 1.1.2, Rust engine 2.0.2 | MIT | 39 read-only, network-free MCP tools via Cargo or npm |
-| `weavatrix-rust` | 2.0.2 | MIT | protocol-independent repository-intelligence engine and library |
+| `weavatrix` | 1.7.0, Rust engine 2.5.1 | MIT | 43 read-only, network-free MCP tools via Cargo or npm |
+| `weavatrix-rust` | 2.5.1 | MIT | protocol-independent repository-intelligence engine and library |
 | `weavatrix-refactor` | 1.0.6 | MIT | hash-bound local source edits and drift-checked rollback |
 | `weavatrix-online` | 0.3.1 | MIT | explicit source-free network workflows |
 
 The engine recognizes 24 code, contract, configuration, document, and UI-source
-surfaces. The current basic release proof covers a real 192-file repository
+surfaces. The published basic release proof (engine 2.0.2, Core 1.1.2) covers a real 192-file repository
 with 1,531 nodes and 7,287 typed edges, a short 1,000-call engine load,
 architecture gates, and 87.71% Rust line coverage (80.57% functions and 85.30%
 regions). The packed and isolated-installed Core 1.1.2 boundary also completed
