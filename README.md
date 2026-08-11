@@ -9,7 +9,7 @@ The production copy tracks the current public family:
 | --- | --- | --- | --- |
 | `weavatrix` | 1.1.2, Rust engine 2.0.2 | MIT | 39 read-only, network-free MCP tools via Cargo or npm |
 | `weavatrix-rust` | 2.0.2 | MIT | protocol-independent repository-intelligence engine and library |
-| `weavatrix-refactor` | 0.1.5 | MIT | reviewed local source edits and rollback |
+| `weavatrix-refactor` | 1.0.6 | MIT | hash-bound local source edits and drift-checked rollback |
 | `weavatrix-online` | 0.3.1 | MIT | explicit source-free network workflows |
 
 The engine recognizes 24 code, contract, configuration, document, and UI-source

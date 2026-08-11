@@ -22,7 +22,7 @@
 
   <h2>Supported versions</h2>
   <p>Security fixes are provided for the latest <code>weavatrix</code> 1.x MCP
-  release, latest <code>weavatrix-rust</code> 2.x engine release, Refactor 0.1.5,
+  release, latest <code>weavatrix-rust</code> 2.x engine release, Refactor 1.0.6,
   and Online 0.3.1. Users on the legacy JavaScript Core should upgrade before
   reporting an issue that may already be resolved.</p>
 
@@ -46,9 +46,11 @@
   <p>Core has no application-source write path. It stores derived analysis caches outside the
   repository; explicit architecture approval may create <code>.weavatrix/architecture.json</code>
   only after preview and token confirmation. The separately installed MIT
-  <code>weavatrix-refactor</code> package can edit source only when its profile, environment gate
-  and single-use plan token all authorize the exact reviewed plan. It verifies hashes and expected
-  text, applies atomically and creates an external rollback bundle.</p>
+  <code>weavatrix-refactor</code> package can edit source only when its environment gate and
+  single-use plan token authorize the exact reviewed plan. Profiles narrow the advertised tool
+  catalog but do not grant write authority. It verifies hashes and expected text, journals
+  crash-recoverable writes and keeps a drift-checked rollback bundle under the repository's
+  <code>.weavatrix/worktree</code> control directory.</p>
 
   <h2>Full policy</h2>
   <p>Process isolation, optional test execution, payload limits and reporting details are documented

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weavatrix Refactor — evidence-backed, transactional refactoring</title>
-<meta name="description" content="Weavatrix Refactor adds 11 evidence-backed MCP tools for semantic rename, coordinated edits, change plans, atomic apply and rollback across JavaScript, TypeScript, SQL, Python, Rust, Go, Java, C# and Solidity.">
+<meta name="description" content="Weavatrix Refactor adds 11 evidence-backed MCP tools for semantic rename, coordinated edits, hash-bound previews, crash-recoverable writes and rollback across JavaScript, TypeScript, SQL, Python, Rust, Go, Java, C# and Solidity.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://weavatrix.com/refactor">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Weavatrix">
 <meta property="og:title" content="Weavatrix Refactor — prove, preview, apply, roll back">
-<meta property="og:description" content="A separately installed MIT write layer with 11 MCP tools, byte-exact plans, atomic multi-file writes and durable rollback.">
+<meta property="og:description" content="A separately installed MIT write layer with 11 MCP tools, byte-exact plans, crash-recoverable writes and drift-checked rollback.">
 <meta property="og:url" content="https://weavatrix.com/refactor">
 <meta property="og:image" content="https://weavatrix.com/og-image-v4.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -22,7 +22,7 @@
   <header>
     <a class="mark" href="/">
       <svg width="26" height="26" viewBox="0 0 100 100"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
-      WEAVATRIX <span class="badge">REFACTOR 0.1.5</span>
+      WEAVATRIX <span class="badge">REFACTOR 1.0.6</span>
     </a>
     <nav><a href="#workflow">Workflow</a><a href="#tools">11 tools</a><a href="#proof">Proof</a><a href="#languages">Languages</a><a href="https://github.com/sergii-ziborov/weavatrix-refactor">GitHub</a></nav>
   </header>
@@ -32,22 +32,22 @@
       <div class="hero-inner">
         <span class="product-kicker">MIT · EXPLICIT WRITE BOUNDARY</span>
         <h1>Refactor with evidence, <em>not blind text replacement</em>.</h1>
-        <p class="sub">Weavatrix Refactor composes the full read-only Core with 11 tools that identify a change, expose uncertainty, preview against the current tree, apply atomically, refresh the graph and roll back.</p>
-        <a class="cta" href="https://www.npmjs.com/package/weavatrix-refactor">Install 0.1.5</a>
+        <p class="sub">Weavatrix Refactor composes the read-only Core with 11 tools that identify a change, expose uncertainty, preview against the current tree, apply through an explicit write gate and retain a drift-checked rollback.</p>
+        <a class="cta" href="https://www.npmjs.com/package/weavatrix-refactor">Install 1.0.6</a>
         <a class="cta2" href="#tools">See every method ↓</a>
       </div>
       <div class="term" id="install">
         <div class="term-bar"><i></i><i></i><i></i></div>
-        <pre><span class="c"># preview and analysis remain read-only</span>
-<span class="g">$</span> npx -y weavatrix-refactor &lt;repoRoot&gt;
+        <pre><span class="c"># rename-only catalog; preview remains read-only</span>
+<span class="g">$</span> npx -y weavatrix-refactor mcp &lt;repoRoot&gt; --profile=rename
 
-<span class="c"># enable only the sessions allowed to apply and roll back source edits</span>
-<span class="g">$</span> WEAVATRIX_ALLOW_SOURCE_EDITS=1 npx -y weavatrix-refactor &lt;repoRoot&gt;</pre>
+<span class="c"># enable only sessions allowed to apply or roll back source edits</span>
+<span class="g">$</span> WEAVATRIX_ALLOW_SOURCE_EDITS=1 npx -y weavatrix-refactor mcp &lt;repoRoot&gt; --profile=rename</pre>
       </div>
     </div>
 
     <section id="workflow">
-      <h2>Rename is complete, not PLANNED</h2>
+      <h2>The same method owns preview and apply</h2>
       <p class="lead product-lead"><code>rename_symbol</code> and <code>rename_related_symbols</code> own their full two-phase operation. The same method previews first, then applies the exact recomputed plan when called with its single-use confirmation token.</p>
       <div class="scenario-grid">
         <article class="scenario"><div class="scenario-head"><small>PHASE 1 · READ-ONLY</small><h3>Preview the exact operation</h3></div><pre><span class="prompt">rename_symbol</span>
@@ -57,24 +57,24 @@ new_name: getCustomer
 <span class="result">PREVIEW_OK</span>
 confirmToken: short-lived, plan-bound
 completeness + uncovered references</pre></article>
-        <article class="scenario"><div class="scenario-head"><small>PHASE 2 · ATOMIC WRITE</small><h3>Confirm through the same method</h3></div><pre><span class="prompt">rename_symbol</span>
+        <article class="scenario"><div class="scenario-head"><small>PHASE 2 · WRITE-GATED APPLY</small><h3>Confirm through the same method</h3></div><pre><span class="prompt">rename_symbol</span>
 same symbol + same new_name
 mode: apply
 confirm_token: &lt;preview token&gt;
 
 <span class="result">APPLIED</span>
-all files written or all restored
-durable rollback bundle retained</pre></article>
+journaled, crash-recoverable writes
+drift-checked rollback retained</pre></article>
       </div>
-      <p class="license-note"><strong>Coordinated rename:</strong> <code>rename_related_symbols</code> validates up to 50 JS/TS renames together, rejects overlaps, chains, swaps, shadowing and any failed sub-rename, then commits the set as one transaction.</p>
+      <p class="license-note"><strong>Coordinated rename:</strong> <code>rename_related_symbols</code> validates up to 50 JS/TS renames together, rejects overlaps, chains, swaps, shadowing and any failed sub-rename, then applies the set through one journaled operation.</p>
     </section>
 
     <section id="tools">
       <h2>All 11 Refactor methods</h2>
       <p class="lead product-lead">Four complete write workflows, four applyable plan producers and three structural review tools. Every uncertainty stays visible instead of being converted into a guessed edit.</p>
       <div class="grid">
-        <div class="card"><h3><span class="dot t"></span><code>rename_symbol</code></h3><p>Cross-language preview/confirm/apply rename using exact JS/TS LSP, schema-aware SQL or strict graph-plus-lexical evidence.</p></div>
-        <div class="card"><h3><span class="dot t"></span><code>rename_related_symbols</code></h3><p>Several JS/TS renames in one language-server session, one conflict check and one atomic multi-file transaction.</p></div>
+        <div class="card"><h3><span class="dot t"></span><code>rename_symbol</code></h3><p>Cross-language preview/confirm/apply rename using graph, tokenizer and exact lexical-location evidence. Unproven occurrences stay named and completeness stays PARTIAL.</p></div>
+        <div class="card"><h3><span class="dot t"></span><code>rename_related_symbols</code></h3><p>Several JS/TS renames in one conflict-checked, crash-recoverable multi-file operation.</p></div>
         <div class="card"><h3><span class="dot"></span><code>apply_edit_plan</code></h3><p>Generic two-phase executor for hash-bound <code>weavatrix.edit-plan.v1</code> envelopes.</p></div>
         <div class="card"><h3><span class="dot"></span><code>rollback_last_apply</code></h3><p>Restores the latest pre-apply bundle and refuses to overwrite files that drifted after apply.</p></div>
         <div class="card"><h3><span class="dot t"></span><code>change_signature</code></h3><p>Adds or removes JS/TS parameters with byte-exact declaration and call-argument surgery; spreads stay uncertain.</p></div>
@@ -94,15 +94,30 @@ durable rollback bundle retained</pre></article>
         <li><b>IDENTIFY</b><span>Stable symbol ID, parser range, callers and blast radius.</span></li>
         <li><b>PLAN</b><span>Exact before/after text, sha256, provenance and uncertainty.</span></li>
         <li><b>CONFIRM</b><span>Short-lived token bound to repository and executable plan.</span></li>
-        <li><b>APPLY</b><span>Lock, stale-tree recheck, bottom-up edits, all-or-nothing write.</span></li>
+        <li><b>APPLY</b><span>Lock, stale-tree recheck and journaled bottom-up edits.</span></li>
         <li><b>VERIFY</b><span>Refresh graph; inspect impact, architecture, tests and rollback.</span></li>
       </ol>
       <div class="grid">
-        <div class="card"><h3><span class="dot t"></span>Three write gates</h3><p>Install the separate package, select its <code>refactor</code> profile, start with <code>WEAVATRIX_ALLOW_SOURCE_EDITS=1</code>, then present the exact single-use token.</p></div>
+        <div class="card"><h3><span class="dot t"></span>Two write gates</h3><p>Start with <code>WEAVATRIX_ALLOW_SOURCE_EDITS=1</code>, then present the exact single-use token. The <code>rename</code> profile narrows the catalog; it is not an authorization gate.</p></div>
         <div class="card"><h3><span class="dot"></span>Stale-tree protection</h3><p>Under the repository lock, every file hash and exact <code>before</code> string must still match the preview.</p></div>
-        <div class="card"><h3><span class="dot t"></span>Transactional recovery</h3><p>A mid-write failure restores already-written files. The durable rollback bundle remains retryable after an incomplete restore.</p></div>
+        <div class="card"><h3><span class="dot t"></span>Crash-recoverable writes</h3><p>The journal and rollback bundle live under the repository's <code>.weavatrix/worktree</code> control directory. Recovery remains retryable after an interrupted write or incomplete restore.</p></div>
         <div class="card"><h3><span class="dot"></span>Path and encoding boundary</h3><p>Traversal, escaping links, NTFS streams, non-UTF-8 files, invalid ranges, overlaps and split surrogate pairs are rejected before writing.</p></div>
       </div>
+    </section>
+
+    <section id="benchmark">
+      <h2>Measured against naked Codex and Serena</h2>
+      <p class="lead product-lead">On the committed toy TypeScript fixture, all three real-agent arms were correct in three runs. Naked Codex was still fastest and cheapest; the rename profile's measured gain is over the previous full Weavatrix surface.</p>
+      <div class="bench-table-wrap"><table class="bench-table">
+        <thead><tr><th>Arm</th><th>Correct runs</th><th>Median wall time</th><th>Median input tokens</th></tr></thead>
+        <tbody>
+          <tr><td>Naked Codex</td><td>3/3</td><td>42,602 ms</td><td>72,169</td></tr>
+          <tr><td>Weavatrix 1.0.6 <code>--profile=rename</code></td><td>3/3</td><td>48,389 ms</td><td>108,155</td></tr>
+          <tr><td>Weavatrix 1.0.5 full surface</td><td>3/3</td><td>58,719 ms</td><td>275,784</td></tr>
+          <tr><td>Serena</td><td>3/3</td><td>68,728 ms</td><td>388,271</td></tr>
+        </tbody>
+      </table></div>
+      <p class="method-note">The rename profile reduced fixed MCP context from 9,331 to 485 exact <code>o200k_base</code> tokens (94.8%) and kept all nine TypeScript, Rust and Python protocol runs at 12/12. These numbers are workload-specific, include each server's catalog and instructions, and report real agent wall time in milliseconds—not a universal claim that a tool beats naked editing on small repositories. <a href="https://github.com/sergii-ziborov/weavatrix-refactor/blob/main/docs/benchmarks/refactor-vs-competitors-2026-08.md">Methodology and raw-result links</a>.</p>
     </section>
 
     <section id="languages">
@@ -111,7 +126,7 @@ durable rollback bundle retained</pre></article>
       <div class="bench-table-wrap"><table class="bench-table">
         <thead><tr><th>Surface</th><th>Backend</th><th>Applyable proof</th><th>Completeness</th></tr></thead>
         <tbody>
-          <tr><td>JavaScript / TypeScript rename</td><td>Bundled language server</td><td>EXACT_LSP</td><td>COMPLETE when boundary is proven</td></tr>
+          <tr><td>JavaScript / TypeScript rename</td><td>Graph + tokenizer + exact lexical location</td><td>EXTRACTED / LEXICAL_EXACT</td><td>PARTIAL</td></tr>
           <tr><td>SQL tables / fields</td><td>Schema-aware scanner</td><td>EXTRACTED / LEXICAL_EXACT</td><td>Skipped and ambiguous uses reported</td></tr>
           <tr><td>Python / Rust / Go</td><td>Graph + exact lexical location</td><td>EXTRACTED / LEXICAL_EXACT</td><td>PARTIAL</td></tr>
           <tr><td>Java / C# / Solidity</td><td>Graph + exact lexical location</td><td>EXTRACTED / LEXICAL_EXACT</td><td>PARTIAL</td></tr>

@@ -48,6 +48,8 @@ test('versioned asset references are current and the hero animation stays determ
 test('Refactor is a first-class product surface with the complete tool catalog', () => {
     const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
     const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
+    const privacy = readFileSync(join(REPO_ROOT, 'site/privacy.html'), 'utf8')
+    const security = readFileSync(join(REPO_ROOT, 'site/security.html'), 'utf8')
     assert.ok(index.includes('href="/refactor"'), 'the landing page links to the Refactor product page')
     const methods = [
         'rename_symbol', 'rename_related_symbols', 'apply_edit_plan', 'rollback_last_apply',
@@ -55,10 +57,21 @@ test('Refactor is a first-class product surface with the complete tool catalog',
         'move_file', 'move_symbol', 'delete_readiness',
     ]
     for (const method of methods) assert.ok(refactor.includes(`<code>${method}</code>`), `${method} is documented`)
-    assert.match(refactor, /Rename is complete, not PLANNED/)
+    assert.match(refactor, /same method owns preview and apply/i)
     assert.match(refactor, /same method/i)
-    assert.match(refactor, /atomic/i)
+    assert.match(refactor, /--profile=rename/)
+    assert.match(refactor, /crash-recoverable/i)
     assert.match(refactor, /rollback/i)
+    assert.doesNotMatch(refactor, /apply atomically|atomic multi-file|ATOMIC WRITE/i)
+    assert.doesNotMatch(refactor, /EXACT_LSP|bundled language server|language-server session/i)
+    assert.doesNotMatch(refactor, /outside the worktree|external[^.]*rollback/i)
+    assert.match(refactor, /\.weavatrix\/worktree/)
+    assert.doesNotMatch(privacy, /~\/\.weavatrix-refactor|current Refactor and Online packages/i)
+    assert.match(privacy, /\.weavatrix\/worktree/)
+    assert.doesNotMatch(security, /external[^.]*rollback/i)
+    assert.match(refactor, /485/)
+    assert.match(refactor, /48,389/)
+    assert.match(refactor, /108,155/)
 })
 
 test('published product versions, MIT licenses, and native benchmark stay current', () => {
@@ -67,7 +80,7 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     const security = readFileSync(join(REPO_ROOT, 'site/security.html'), 'utf8')
     const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
     const readme = readFileSync(join(REPO_ROOT, 'README.md'), 'utf8')
-    for (const release of ['Core <small>1.1.2', 'Refactor <small>0.1.5', 'Online <small>0.3.1']) {
+    for (const release of ['Core <small>1.1.2', 'Refactor <small>1.0.6', 'Online <small>0.3.1']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
     assert.match(index, /weavatrix-rust <small>2\.0\.2/)
@@ -92,6 +105,7 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     assert.match(index, /not a claim about every repository, machine, or workload/)
     const releaseCopy = [index, security, refactor, readme].join('\n')
     assert.doesNotMatch(releaseCopy, /Core <small>1\.1\.1|weavatrix-rust <small>2\.0\.1|weavatrix 1\.1\.1/)
+    assert.doesNotMatch(releaseCopy, /Refactor <small>0\.1\.5|REFACTOR 0\.1\.5|Install 0\.1\.5/)
     assert.doesNotMatch(releaseCopy, /Core <small>1\.1\.0|weavatrix-rust <small>2\.0\.0|weavatrix 1\.1\.0/)
     assert.doesNotMatch(releaseCopy, /Core <small>1\.0\.0|REFACTOR 0\.1\.3|Online <small>0\.3\.0/)
     assert.doesNotMatch(releaseCopy, /weavatrix-rust <small>1\.0\.[0-9]+|Rust engine: 1\.0\.[0-9]+/)

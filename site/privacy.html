@@ -32,17 +32,13 @@
 
   <h2>Separate local write product (opt-in)</h2>
   <p>The MIT Core does not edit application source. The separately installed MIT
-  <code>weavatrix-refactor</code> package can apply a reviewed local edit only after three explicit
-  gates: the refactor profile, <code>WEAVATRIX_ALLOW_SOURCE_EDITS=1</code> and a single-use plan
-  token. It stores rollback bundles and token state under <code>~/.weavatrix-refactor/</code> and
+  <code>weavatrix-refactor</code> package can apply a reviewed local edit only after two explicit
+  gates: <code>WEAVATRIX_ALLOW_SOURCE_EDITS=1</code> and a single-use, plan-bound token. A profile
+  only narrows the advertised tool catalog. The package stores rollback bundles and token state under the repository's <code>.weavatrix/worktree</code> control directory and
   performs no network request.</p>
 
-  <p>The JavaScript engine composed by the current Refactor and Online packages can start package-pinned
-  <code>typescript-language-server</code>/<code>tsserver</code> processes locally. Automatic type
-  acquisition is disabled, child credentials are stripped, and Weavatrix does not invoke repository
-  executables, scripts, installers or <code>npx</code>. The overlay may read repository-contained JS/TS
-  configuration, dependencies and type declarations. It makes no Weavatrix network request and can be
-  disabled with <code>WEAVATRIX_PRECISION=off</code>.</p>
+  <p>Refactor 1.x is native and does not start a language server or execute repository programs,
+  scripts, installers or <code>npx</code>.</p>
 
   <h2>Separate network-capable product (opt-in)</h2>
   <p>The following tools belong to <code>weavatrix-online</code>, not to the MIT core:</p>
