@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weavatrix Ecosystem — graphs, memory, proof, and safe action for AI agents</title>
+<meta name="description" content="Explore the Weavatrix open-source stack: agent products, Rust evidence engines, search and Git primitives, safe refactoring, quality proof, composition, and research.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://weavatrix.com/ecosystem">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Weavatrix">
+<meta property="og:title" content="The Weavatrix ecosystem">
+<meta property="og:description" content="A composable evidence substrate for AI software agents—from lossless parsing and graphs to memory, proof, and safe action.">
+<meta property="og:url" content="https://weavatrix.com/ecosystem">
+<meta property="og:image" content="https://weavatrix.com/og-image-v4.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=0.4.0-ecosystem-1">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="mark" href="/" aria-label="Weavatrix home">
+      <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
+      WEAVATRIX
+    </a>
+    <nav><a href="/">Overview</a><a href="#products">Agent products</a><a href="#engines">Engines</a><a href="#proof">Measured proof</a><a href="#research">Research</a><a href="https://github.com/Weavatrix">GitHub</a></nav>
+  </header>
+
+  <main>
+    <section class="ecosystem-hero">
+      <div class="eyebrow">OPEN-SOURCE AGENT INFRASTRUCTURE</div>
+      <h1>One evidence substrate.<br><em>Many forms of intelligence.</em></h1>
+      <p class="sub">AI models are getting more capable; software systems are getting less legible. Weavatrix closes that gap by turning repositories into durable, inspectable evidence graphs that agents can query, remember, verify, and—only through explicit boundaries—change.</p>
+      <div class="principles" aria-label="Weavatrix principles"><span>local first</span><span>evidence over confidence</span><span>bounded context</span><span>explicit uncertainty</span><span>composable trust</span></div>
+    </section>
+
+    <section id="products">
+      <div class="section-heading"><div><span class="eyebrow">AGENT SURFACES</span><h2>Products agents can use today</h2></div><p>The product line separates understanding, mutation, and networking. Installing one boundary never silently grants another.</p></div>
+      <div class="project-grid featured-projects">
+        <article class="project-card featured"><span class="project-kind">READ-ONLY MCP · RUST</span><h3>Weavatrix Core</h3><p>43 repository-intelligence tools across 24 code and configuration surfaces. One reusable local graph for orientation, impact, APIs, architecture, Git, search, semantics, and memory.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix">GitHub</a><a href="https://www.npmjs.com/package/weavatrix">npm</a><a href="https://crates.io/crates/weavatrix">Cargo</a></div></article>
+        <article class="project-card featured"><span class="project-kind">WRITE LAYER · RUST</span><h3>Weavatrix Refactor</h3><p>Eleven evidence-backed methods that preview exact changes, bind confirmation to current bytes, apply through a crash-recoverable journal, and retain drift-checked rollback.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-refactor">GitHub</a><a href="https://www.npmjs.com/package/weavatrix-refactor">npm</a><a href="https://crates.io/crates/weavatrix-refactor">Cargo</a></div></article>
+        <article class="project-card featured"><span class="project-kind">NETWORK LAYER · JAVASCRIPT</span><h3>Weavatrix Online</h3><p>Seven explicit network methods for endpoint status, advisories, malware review, architecture contracts, and preview-confirmed source-free graph sync.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-online">GitHub</a><a href="https://www.npmjs.com/package/weavatrix-online">npm</a></div></article>
+        <article class="project-card featured"><span class="project-kind">SPEC-TO-PROOF · RUST</span><h3>Weavatrix Quality</h3><p>Turns product intent and repository changes into revision-bound obligations, runner evidence, immutable proofs, and honest incomplete-evidence states.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-quality">GitHub</a></div></article>
+      </div>
+    </section>
+
+    <section id="engines">
+      <div class="section-heading"><div><span class="eyebrow">EVIDENCE ENGINES</span><h2>The stack below the agent</h2></div><p>Small crates own one hard boundary each. They remain useful outside MCP and can be composed without importing the full product.</p></div>
+      <div class="project-grid compact-projects">
+        <article class="project-card"><span class="project-kind">ORCHESTRATION</span><h3>weavatrix-rust</h3><p>Protocol-independent repository intelligence and the 43-operation engine behind Core.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-rust">Source</a><a href="https://crates.io/crates/weavatrix-rust">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">EVIDENCE GRAPH</span><h3>weavatrix-graph</h3><p>Deterministic nodes, typed relations, provenance, spans, traversal, and serialization.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-graph">Source</a><a href="https://crates.io/crates/weavatrix-graph">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">LOSSLESS SOURCE</span><h3>weavatrix-parse</h3><p>Dependency-free tokenization and structural extraction with exact byte round trips.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-parse">Source</a><a href="https://crates.io/crates/weavatrix-parse">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">FILESYSTEM EVIDENCE</span><h3>weavatrix-scan</h3><p>Ignore-aware, bounded repository traversal with deterministic manifests and revisions.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-scan">Source</a><a href="https://crates.io/crates/weavatrix-scan">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">EXACT RETRIEVAL</span><h3>weavatrix-search</h3><p>Bounded literal, regex, multiline, query-set, and persistent live-index search.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-search">Source</a><a href="https://crates.io/crates/weavatrix-search">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">VECTOR RETRIEVAL</span><h3>weavatrix-search-vector</h3><p>Dependency-free exact and bounded approximate vector candidate search.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-search-vector">Source</a><a href="https://crates.io/crates/weavatrix-search-vector">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">SEMANTIC EVIDENCE</span><h3>weavatrix-semantic</h3><p>Exact-rescored semantic relations with policy, provenance, and architecture safeguards.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-semantic">Source</a><a href="https://crates.io/crates/weavatrix-semantic">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">TEMPORAL MEMORY</span><h3>weavatrix-memory</h3><p>Revision-aware facts, decisions, failures, handoffs, and bounded context compilation.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-memory">Source</a><a href="https://crates.io/crates/weavatrix-memory">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">GIT EVIDENCE</span><h3>weavatrix-git</h3><p>Fast bounded history, objects, indexes, manifests, and cross-repository evidence without a Git subprocess.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-git">Source</a><a href="https://crates.io/crates/weavatrix-git">crate</a><a href="https://www.npmjs.com/package/weavatrix-git">npm MCP</a></div></article>
+        <article class="project-card"><span class="project-kind">CLONE EVIDENCE</span><h3>weavatrix-clone</h3><p>Deterministic Type-1/2/3 clone families, spans, limits, and review evidence.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-clone">Source</a><a href="https://crates.io/crates/weavatrix-clone">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">BOUNDED LSP</span><h3>weavatrix-lsp</h3><p>Tokio-free framing and client contracts for exact local language-server evidence.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-lsp">Source</a><a href="https://crates.io/crates/weavatrix-lsp-client">client</a><a href="https://crates.io/crates/weavatrix-lsp-wire">wire</a></div></article>
+        <article class="project-card"><span class="project-kind">EXACT EDITS</span><h3>weavatrix-edit</h3><p>Deterministic Unicode-safe validation and application of immutable text edits.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-edit">Source</a><a href="https://crates.io/crates/weavatrix-edit">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">PLAN CONTRACT</span><h3>weavatrix-refactor-plan</h3><p>Versioned multi-operation plans, validation profiles, evidence, and fingerprints.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-refactor-plan">Source</a><a href="https://crates.io/crates/weavatrix-refactor-plan">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">TRANSACTION RUNTIME</span><h3>weavatrix-worktree</h3><p>Bounded, crash-recoverable multi-file execution with journaling and rollback.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-worktree">Source</a><a href="https://crates.io/crates/weavatrix-worktree">crate</a></div></article>
+        <article class="project-card"><span class="project-kind">REFACTOR ENGINE</span><h3>weavatrix-rust-refactor</h3><p>Protocol-independent refactor operations that connect evidence to transactional apply.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-rust-refactor">Source</a><a href="https://crates.io/crates/weavatrix-rust-refactor">crate</a></div></article>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="section-heading"><div><span class="eyebrow">REPRODUCIBLE, SCOPED CLAIMS</span><h2>Performance is part of the contract</h2></div><p>These are measured workload results, not universal rankings. Every linked repository publishes parity checks, fixtures, caveats, and reproduction commands.</p></div>
+      <div class="proof-grid">
+        <article class="proof-card"><strong>24.4 ms</strong><span>resident exact query over a 200k-file Windows fixture</span><p>The same normalized path/line/span result took 4,927.2 ms through a fresh ripgrep process because the resident index avoids process startup and traversal.</p><a href="https://github.com/Weavatrix/weavatrix-search#persistentlive-index-benchmark">Search evidence</a></article>
+        <article class="proof-card"><strong>1.37×–2.36×</strong><span>faster Windows end-to-end literal rows</span><p>On disclosed 20k and 200k warm-cache fixtures. On Ubuntu at 200k, ripgrep was 1.35x faster; the comparison stays visible because platform truth matters.</p><a href="https://github.com/Weavatrix/weavatrix-search#windows-end-to-end-benchmark">Search evidence</a></article>
+        <article class="proof-card"><strong>0.355 ms</strong><span>1,000 warm Git history entries</span><p>Exact-parity release builds measured 0.884 ms with gix and 1.552 ms with libgit2. Across eight repositories, Weavatrix won all five measured p50 contracts.</p><a href="https://github.com/Weavatrix/weavatrix-git/blob/main/BENCHMARKS.md">Git evidence</a></article>
+        <article class="proof-card"><strong>1,000,000</strong><span>file traversal fixture</span><p>Streaming traversal measured 15.5% faster than jwalk with 95.2% less peak working set; compact metadata scanning was 51.6% faster than the output-equivalent ignore manifest.</p><a href="https://github.com/Weavatrix/weavatrix-scan#benchmarks">Scan evidence</a></article>
+      </div>
+    </section>
+
+    <section id="composition">
+      <div class="section-heading"><div><span class="eyebrow">COMPOSITION & CONTINUITY</span><h2>Beyond one engine</h2></div><p>The ecosystem includes composition research, compatibility lines, and the public surface that keeps the project legible.</p></div>
+      <div class="project-grid compact-projects">
+        <article class="project-card"><span class="project-kind">SEMANTIC COMPOSITION</span><h3>weavatrix-loom</h3><p>Composes verified capabilities into ordinary Rust while preserving evidence and boundaries.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-loom">Source</a><a href="https://crates.io/search?q=wvx-">Cargo family</a></div></article>
+        <article class="project-card"><span class="project-kind">JAVASCRIPT LINE</span><h3>weavatrix-js</h3><p>The maintained legacy JavaScript engine and compatibility base for existing integrations.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-js">Source</a><a href="https://www.npmjs.com/package/weavatrix-js">npm</a></div></article>
+        <article class="project-card"><span class="project-kind">JAVASCRIPT WRITE LINE</span><h3>weavatrix-refactor-js</h3><p>The transactional JavaScript refactoring engine, kept explicit rather than hidden inside the Rust product.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-refactor-js">Source</a><a href="https://www.npmjs.com/package/weavatrix-refactor-js">npm</a></div></article>
+        <article class="project-card"><span class="project-kind">PUBLIC SURFACE</span><h3>weavatrix-site</h3><p>The dependency-free website, legal boundaries, measured claims, and deterministic graph experience.</p><div class="project-links"><a href="https://github.com/Weavatrix/weavatrix-site">Source</a><a href="https://weavatrix.com">Website</a></div></article>
+      </div>
+    </section>
+
+    <section id="platform">
+      <div class="section-heading"><div><span class="eyebrow">PRIVATE PRODUCT INFRASTRUCTURE</span><h2>From evidence to a working surface</h2></div><p>These repositories stay private while their boundaries, tenant model, licensing, and product contracts mature.</p></div>
+      <div class="project-grid compact-projects">
+        <article class="project-card"><span class="project-kind">MANAGED WORKBENCH · PRIVATE</span><h3>weavatrix-hosted</h3><p>The authenticated source-free graph workbench for revision history, architecture review, Health, duplicate evidence, and durable decisions.</p></article>
+        <article class="project-card"><span class="project-kind">ARCHITECTURE DESIGN · PRIVATE ALPHA</span><h3>weavatrix-blocks</h3><p>A visual workspace for designing modules, boundaries, processes, and migration steps from source-free Weavatrix evidence.</p></article>
+        <article class="project-card"><span class="project-kind">SELF-HOSTED · PRIVATE SCAFFOLD</span><h3>weavatrix-hosted-enterprise</h3><p>A thin self-hosted distribution boundary for customer-owned storage, identity, licensing, backup, and operations adapters.</p></article>
+      </div>
+    </section>
+
+    <section id="research" class="research-section">
+      <div><span class="eyebrow">PRIVATE RESEARCH TRACK</span><h2>Weavatrix Hetero</h2><p><code>weavatrix-hetero</code> is not another public product claim. It is a private research track exploring how symbolic analyzers, graph algorithms, language models, runtime evidence, and different compute substrates can cooperate while preserving provenance, uncertainty, cost, and the right to disagree.</p></div>
+      <div class="research-orbit" aria-hidden="true"><i></i><i></i><i></i><b>HETERO</b></div>
+    </section>
+  </main>
+
+  <footer><div>© 2026 Weavatrix · Open-source projects are licensed per repository</div><div><a href="/">Overview</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a> · <a href="https://github.com/Weavatrix">GitHub</a></div></footer>
+</div>
+</body>
+</html>
