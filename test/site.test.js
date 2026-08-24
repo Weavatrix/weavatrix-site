@@ -72,6 +72,18 @@ test('Hetero publishes hardware evidence, quality classes, and negative results 
     assert.doesNotMatch(hetero, /github\.com\/Weavatrix\/weavatrix-hetero/i)
 })
 
+test('the engineering journal publishes Hetero as a scoped research article', () => {
+    const blog = readFileSync(join(REPO_ROOT, 'site/blog.html'), 'utf8')
+    for (const claim of ['26/26', '18 exact-prompt pairs', '5.31%', '6.22%', '36.34%', '22.03%', '2/4', '1.6×', '+18%']) {
+        assert.ok(blog.includes(claim), `${claim} is retained in the Hetero article`)
+    }
+    assert.match(blog, /Performance PASS is not quality PASS/)
+    assert.match(blog, /approximate and off by default/)
+    assert.ok(blog.includes('href="/hetero"'), 'the article links to the complete evidence page')
+    assert.ok(blog.includes('href="/blog.css?v=0.1.1"'), 'the article layout uses its current stylesheet')
+    assert.doesNotMatch(blog, /github\.com\/Weavatrix\/weavatrix-hetero/i)
+})
+
 test('primary navigation exposes the ecosystem and blog on every product surface', () => {
     const pages = ['index.html', 'ecosystem.html', 'refactor.html', 'blog.html', 'hetero.html']
         .map(name => readFileSync(join(REPO_ROOT, 'site', name), 'utf8'))

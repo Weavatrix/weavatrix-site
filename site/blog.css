@@ -1,0 +1,12 @@
+.article-index { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.research-entry { position: relative; overflow: hidden; border-color: rgba(64,224,200,.3); background: radial-gradient(circle at 88% 18%, rgba(64,224,200,.09), transparent 24rem), linear-gradient(145deg, rgba(22,23,34,.94), rgba(11,12,19,.97)); }
+.research-entry::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.research-entry .entry-meta span { color: var(--accent2); }
+
+@media (max-width: 900px) { .article-index { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) {
+  .article-index { grid-template-columns: 1fr; }
+  .blog-hero { width: 100%; max-width: 100%; min-width: 0; }
+  .blog-hero h1 { width: 100%; max-width: 100%; font-size: clamp(38px, 11vw, 48px); overflow-wrap: anywhere; }
+  .blog-hero .sub { width: 100%; max-width: 100%; font-size: 17px; overflow-wrap: anywhere; }
+}

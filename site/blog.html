@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weavatrix Blog — field notes from the evidence graph</title>
-<meta name="description" content="Engineering notes on repository graphs, retrieval, memory, proof, and safe agent infrastructure from Weavatrix.">
+<meta name="description" content="Engineering notes on repository graphs, retrieval, memory, proof, heterogeneous inference, and safe agent infrastructure from Weavatrix.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://weavatrix.com/blog">
 <meta property="og:type" content="website">
@@ -19,6 +19,7 @@
 <meta name="twitter:image" content="https://weavatrix.com/og-image-v4.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/styles.css?v=0.5.0-navigation-1">
+<link rel="stylesheet" href="/blog.css?v=0.1.1">
 </head>
 <body>
 <div class="wrap">
@@ -38,12 +39,25 @@
     </section>
 
     <nav class="article-index" aria-label="Blog articles">
-      <a href="#repository-memory"><span>01</span><strong>The repository should remember more than the prompt</strong></a>
-      <a href="#trust-boundaries"><span>02</span><strong>Three trust boundaries for agent tooling</strong></a>
-      <a href="#measured-speed"><span>03</span><strong>Fast, with the scope attached</strong></a>
+      <a href="#heterogeneous-inference"><span>01</span><strong>Heterogeneous inference, measured rather than assumed</strong></a>
+      <a href="#repository-memory"><span>02</span><strong>The repository should remember more than the prompt</strong></a>
+      <a href="#trust-boundaries"><span>03</span><strong>Three trust boundaries for agent tooling</strong></a>
+      <a href="#measured-speed"><span>04</span><strong>Fast, with the scope attached</strong></a>
     </nav>
 
     <section class="journal" aria-label="Latest articles">
+      <article id="heterogeneous-inference" class="journal-entry research-entry">
+        <div class="entry-meta"><span>APPLE SILICON RESEARCH</span><time datetime="2026-08-24">24 AUG 2026</time></div>
+        <h2>Heterogeneous inference, measured rather than assumed</h2>
+        <p>Apple Silicon offers CPU cores, a Metal GPU, and an Apple Neural Engine behind Core AI. The attractive story is that a language-model runtime should simply split work across all of them. The harder question is whether a particular split is faster without changing the answer—and whether that result survives an external control.</p>
+        <p>Weavatrix Hetero treats that question as an evidence problem. On an Apple M4 with Qwen3-0.6B, the admitted exact path routes short C32 work to Metal, C512 prefill to a Core AI M512 graph, C2048 prefill to Core AI SDPA M2048, and decode back to Metal. The compiled FP16 contract matched 26/26 reference tokens before performance could count.</p>
+        <p>Across 18 exact-prompt pairs against Ollama F16, with six balanced repetitions per context, exact prefill was 5.31% faster at C512 and 6.22% faster at C2048. C32 prefill was 36.34% slower. That loss is part of the result: the router keeps the short path on Metal instead of turning one successful graph into a universal policy.</p>
+        <p>The experimental full-Q8 path made C512 complete compute 22.03% faster than Ollama F16 in all 6/6 pairs, but it passed only 2/4 strict portable quality cases and did not clear the 20% target against Ollama Q4_K_M. It remains approximate and off by default. Performance PASS is not quality PASS.</p>
+        <p>The failed ideas matter just as much. Serial per-layer Metal-to-ANE offload amplified numerical drift; a whole Core AI decode step was exact but 1.6× slower than Metal and unstable under mixed placement; unmanaged overlap regressed foreground decode TPOT by +18%. Simulations remain explicitly non-hardware evidence until a physical run earns promotion.</p>
+        <p>This is the point of Hetero: not to claim that every available processor must be used, but to build a runtime that can say which route won, under which precision contract, on which machine—and refuse the route when any part of that evidence changes.</p>
+        <div class="entry-links"><a href="/hetero">Read the benchmarks and limits</a><a href="/ecosystem#research">See the research track</a></div>
+      </article>
+
       <article id="repository-memory" class="journal-entry">
         <div class="entry-meta"><span>ARCHITECTURE</span><time datetime="2026-08-24">24 AUG 2026</time></div>
         <h2>The repository should remember more than the prompt</h2>
