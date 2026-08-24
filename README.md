@@ -29,7 +29,7 @@ the engine; this repo owns everything the site needs, including its deploy confi
 
 ## Layout
 
-- `site/` — the pages and assets served at weavatrix.com (overview, ecosystem, blog, Refactor,
+- `site/` — the pages and assets served at weavatrix.com (overview, ecosystem, blog, Refactor, Hetero research,
   security, privacy, licenses, favicons, OG images, and deterministic graph animation)
 - `wrangler.jsonc` — Cloudflare static-assets Worker config (`weavatrix.com` + `www` custom domains)
 - `.github/workflows/deploy-site.yml` — deploys on every push to `main` that touches the site

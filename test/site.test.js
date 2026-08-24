@@ -56,10 +56,24 @@ test('ecosystem page maps the public stack and keeps benchmark claims scoped', (
     assert.match(ecosystem, /not universal rankings/i)
     assert.match(ecosystem, /ripgrep was 1\.35x faster/i)
     assert.match(ecosystem, /private research track/i)
+    assert.match(ecosystem, /Ollama F16 prefill by 5\.31% at 512 tokens and 6\.22% at 2,048 tokens/i)
+    assert.ok(ecosystem.includes('href="/hetero"'), 'the Hetero research summary links to its evidence page')
+})
+
+test('Hetero publishes hardware evidence, quality classes, and negative results without exposing the private repository', () => {
+    const hetero = readFileSync(join(REPO_ROOT, 'site/hetero.html'), 'utf8')
+    for (const claim of ['26 / 26', '−6.22%', '18 exact-prompt pairs', '−22.03%', '23/28', '89.1%', '+18%', '2/4 exact']) {
+        assert.ok(hetero.includes(claim), `${claim} is documented on the Hetero page`)
+    }
+    assert.match(hetero, /Performance PASS ≠ quality PASS/)
+    assert.match(hetero, /NO-GO/)
+    assert.match(hetero, /hardwareEvidence: false/)
+    assert.match(hetero, /Apple hardware conclusions come only from the committed macOS evidence bundles/i)
+    assert.doesNotMatch(hetero, /github\.com\/Weavatrix\/weavatrix-hetero/i)
 })
 
 test('primary navigation exposes the ecosystem and blog on every product surface', () => {
-    const pages = ['index.html', 'ecosystem.html', 'refactor.html', 'blog.html']
+    const pages = ['index.html', 'ecosystem.html', 'refactor.html', 'blog.html', 'hetero.html']
         .map(name => readFileSync(join(REPO_ROOT, 'site', name), 'utf8'))
     for (const html of pages) {
         assert.match(html, /<nav[^>]*aria-label="Primary"/)

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weavatrix Hetero — measured heterogeneous inference on Apple Silicon</title>
+<meta name="description" content="Apple M4 research on evidence-bound Qwen inference across Metal, Core AI, and the Apple Neural Engine, including exact and approximate quality gates, Ollama controls, and retained NO-GO results.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://weavatrix.com/hetero">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Weavatrix">
+<meta property="og:title" content="Weavatrix Hetero">
+<meta property="og:description" content="Heterogeneous inference measured rather than assumed: Apple M4 hardware evidence, external Ollama controls, quality gates, and explicit failures.">
+<meta property="og:url" content="https://weavatrix.com/hetero">
+<meta property="og:image" content="https://weavatrix.com/og-image-v4.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=0.5.0-navigation-1">
+<link rel="stylesheet" href="/hetero.css?v=0.1.2">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="mark" href="/" aria-label="Weavatrix home">
+      <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
+      WEAVATRIX
+    </a>
+    <nav aria-label="Primary"><a href="/">Overview</a><a href="/ecosystem">Ecosystem</a><a href="/blog">Blog</a><a href="/hetero" aria-current="page">Research</a><a href="https://github.com/Weavatrix">GitHub</a></nav>
+  </header>
+
+  <main>
+    <section class="hetero-hero">
+      <span class="eyebrow">PRIVATE RESEARCH · APPLE M4 · QWEN3-0.6B</span>
+      <h1>Heterogeneous inference,<br><em>measured rather than assumed.</em></h1>
+      <p class="sub">Weavatrix Hetero is a Rust research runtime and evidence program for deciding where each inference phase belongs: CPU, Metal GPU, or a Core AI graph that may mix GPU and Apple Neural Engine work. A route is admitted only for the exact model pack, shape, precision, hardware, OS, and evidence bundle that passed its gates.</p>
+      <div class="hetero-tags" aria-label="Research scope"><span>Rust + Swift + Metal</span><span>Core AI / ANE</span><span>paired external controls</span><span>fail-closed routing</span></div>
+    </section>
+
+    <section class="hetero-status" aria-label="Current research status">
+      <article><strong>26 / 26</strong><span>compiled-FP16 reference tokens matched</span></article>
+      <article><strong>−6.22%</strong><span>C2048 exact prefill vs Ollama F16, 6/6 pairs</span></article>
+      <article><strong>−22.03%</strong><span>C512 approximate-Q8 complete compute vs Ollama F16, 6/6</span></article>
+      <article><strong>OFF BY DEFAULT</strong><span>Q8 speed cannot promote without the quality gate</span></article>
+    </section>
+
+    <section id="runtime">
+      <div class="section-heading"><div><span class="eyebrow">THE MEASURED RUNTIME</span><h2>One pipeline, two declared precision contracts</h2></div><p>Core AI owns fused prefill only where a measured cost map wins. Decode remains on Metal. Unknown evidence is an error or a Metal fallback—not an optimistic guess.</p></div>
+      <div class="hetero-flow" aria-label="Hetero inference pipeline">
+        <article><b>1</b><small>HOST</small><strong>Tokenize + embed</strong><p>Lock the model, tokenizer, prompt length, precision, and machine fingerprint.</p></article>
+        <article><b>2</b><small>ROUTER</small><strong>Choose measured prefill</strong><p>C32 → Metal. C512 → Core AI M512. C2048 → Core AI SDPA M2048.</p></article>
+        <article><b>3</b><small>SHARED BUFFER</small><strong>Hand off hidden state + KV</strong><p>Decoder-ready planes avoid host K/V readback and cache materialization on the qualified path.</p></article>
+        <article><b>4</b><small>METAL</small><strong>Decode</strong><p>Dense FP16 is compiled-exact. Full HeteroPack Q8 is explicit, approximate, and experimental.</p></article>
+      </div>
+    </section>
+
+    <section id="exact">
+      <div class="section-heading"><div><span class="eyebrow">HARDWARE EVIDENCE · EXACT PATH</span><h2>Latest routed control against Ollama F16</h2></div><p>Apple M4 on AC power; Qwen3-0.6B; 16 generated tokens; six paired repetitions at each context. All 18 exact-prompt pairs rotate system order and bind source, binary, model, assets, and cost map by SHA-256. Negative percentages mean Hetero is faster.</p></div>
+      <div class="bench-table-wrap"><table class="bench-table hetero-table"><thead><tr><th>Context</th><th>Qualified route</th><th>Prefill</th><th>Decode / token</th><th>Complete compute</th><th>Pair verdict</th></tr></thead><tbody>
+        <tr><td>C32</td><td>Metal</td><td class="loss">+36.34%</td><td class="loss">+2.67%</td><td class="loss">+5.48%</td><td>2 / 6 compute wins</td></tr>
+        <tr><td>C512</td><td>Core AI M512</td><td class="win">−5.31%</td><td class="win">−12.07%</td><td class="win">−9.70%</td><td>4 / 6 compute wins</td></tr>
+        <tr><td>C2048</td><td>Core AI SDPA M2048</td><td class="win">−6.22%</td><td class="win">−0.77%</td><td class="win">−3.97%</td><td>6 / 6 prefill wins</td></tr>
+      </tbody></table></div>
+      <p class="method-note">Scope: the C2048 prefill result closed the previous +21.12% deficit, but the broader 20% product goal did not pass. This run deliberately used zero spacing between systems; its large tails remain in the evidence instead of being filtered. The exact dense path is a measured research result, not a public runtime release.</p>
+    </section>
+
+    <section id="q8">
+      <div class="section-heading"><div><span class="eyebrow">HARDWARE EVIDENCE · APPROXIMATE PATH</span><h2>Q8 makes decode faster—and remains blocked</h2></div><p>The same routed prefill was paired with all 197 HeteroPack Q8 projections. The external performance signal is strong; the portable strict quality screen is only 2/4 exact, so this mode stays explicit and off by default.</p></div>
+      <div class="bench-table-wrap"><table class="bench-table hetero-table"><thead><tr><th>Context</th><th>Prefill vs F16</th><th>Decode / token vs F16</th><th>Complete compute vs F16</th><th>Complete compute vs Q4_K_M</th></tr></thead><tbody>
+        <tr><td>C32</td><td class="loss">+131.48%</td><td class="win">−40.31%</td><td class="win">−19.69%</td><td class="loss">+53.20%</td></tr>
+        <tr><td>C512</td><td class="win">−2.68%</td><td class="win">−38.28%</td><td class="win">−22.03%</td><td class="loss">+1.95%</td></tr>
+        <tr><td>C2048</td><td class="loss">+2.70%</td><td class="win">−34.16%</td><td class="win">−5.67%</td><td class="win">−1.04%</td></tr>
+      </tbody></table></div>
+      <div class="gate-callout"><strong>Performance PASS ≠ quality PASS.</strong><p>C512 cleared the 20% complete-compute target against Ollama F16 in all 6/6 repetitions. No context cleared that target against Ollama Q4_K_M. Lower weight-byte width is still the unsolved Q4 race, and full Q8 cannot promote until a widened held-out quality suite passes.</p></div>
+    </section>
+
+    <section id="findings">
+      <div class="section-heading"><div><span class="eyebrow">WHAT THE EXPERIMENTS ACTUALLY TAUGHT</span><h2>Wins, limits, and retained failures</h2></div><p>Negative results remain first-class evidence. They change the scheduler and stop attractive microbenchmarks from becoming unsafe defaults.</p></div>
+      <div class="finding-grid">
+        <article class="finding-card good"><span>EXACT</span><h3>Fused prefill is real</h3><p>The GPU-preferred fused graph matched 26/26 tokens in one FP16 contract. Against this project's reference Metal runtime, internal bucket tests measured 4.8× / 2.1× / 1.75× TTFT at M128 / M512 / M2048; those are not claims against the best possible Metal implementation.</p></article>
+        <article class="finding-card warn"><span>APPROXIMATE</span><h3>The compiler chooses a mixed graph</h3><p>Core AI auto placement used both GPU and ANE. It matched 23/28 prompts and 89.1% of continuation tokens, with near-tie greedy flips. It is a declared approximate mode, never an exact-path substitute.</p></article>
+        <article class="finding-card no"><span>NO-GO</span><h3>Per-layer offload amplifies drift</h3><p>Serial Metal-attention → ANE-MLP boundaries failed full-chain correctness. A whole Core AI decode step was exact but 1.6× slower than Metal and crashed under mixed placement. Prefill can route; decode stays Metal.</p></article>
+        <article class="finding-card no"><span>NO-GO</span><h3>Unmanaged overlap breaks the SLO</h3><p>Running mixed prefill beside foreground Metal decode regressed decode TPOT by +18%. Aggregate throughput rose, but request overlap is not admissible without a flow-aware scheduler.</p></article>
+      </div>
+    </section>
+
+    <section id="simulations">
+      <div class="section-heading"><div><span class="eyebrow">QUARANTINED SIMULATIONS</span><h2>Hypotheses that have not earned hardware status</h2></div><p>Every simulation result carries <code>hardwareEvidence: false</code> and <code>productionEligible: false</code>. The production planner rejects it; the numbers only prioritize physical experiments.</p></div>
+      <div class="simulation-grid">
+        <article><strong>1.687×</strong><span>block-drafter model vs sequential drafting</span><p>Assumed acceptance and latency; no trained drafter or output-quality run.</p></article>
+        <article><strong>1.960×</strong><span>static MoE expert-tier model</span><p>91.646% of requests crossed devices—the join/residency warning behind the average.</p></article>
+        <article><strong>8.0×</strong><span>algebraic FP16 KV-byte reduction</span><p>Synthetic MLA fit; 26.546% activation RMSE, not a converted Qwen model.</p></article>
+        <article><strong>2.426×</strong><span>HeteroTrack schedule vs all-Metal</span><p>A 144-node synthetic DAG; no claim about observed runtime speedup.</p></article>
+      </div>
+    </section>
+
+    <section id="evidence" class="evidence-contract">
+      <span class="eyebrow">THE EVIDENCE CONTRACT</span><h2>Private source, public limits</h2>
+      <p>The repository stays private because it contains experimental runtime and asset pipelines, not because its conclusions are exempt from scrutiny. Public claims on this page name the machine, model, precision, comparison boundary, repetitions, quality class, and failed gates. Benchmark harness tests cover prompt identity, balanced schedules, lifecycle isolation, raw-stream hashing, provenance, route receipts, retry semantics, paired statistics, and fail-closed promotion. Apple hardware conclusions come only from the committed macOS evidence bundles—not from a Windows build or a synthetic simulator.</p>
+      <div class="evidence-links"><a href="/ecosystem">Back to the ecosystem</a><a href="/blog">Read the engineering journal</a></div>
+    </section>
+  </main>
+
+  <footer><div>© 2026 Weavatrix · Hetero is a private research track, not a public product</div><div><a href="/">Overview</a> · <a href="/ecosystem">Ecosystem</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a></div></footer>
+</div>
+</body>
+</html>
