@@ -96,7 +96,7 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     for (const release of ['Core <small>1.9.0', 'Refactor <small>1.0.8', 'Online <small>0.3.2']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
-    assert.match(index, /weavatrix-rust <small>2\.7\.1/)
+    assert.match(index, /weavatrix-rust <small>2\.7\.2/)
     assert.match(index, /typed analyzers, deterministic snapshots, evidence graphs/)
     assert.match(index, /It does not implement an MCP server/)
     assert.match(index, /cargo install weavatrix/)
