@@ -31,7 +31,7 @@ test('site assets stay within the 300-line budget', () => {
 
 test('versioned asset references are current and the hero animation stays deterministic', () => {
     const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
-    assert.ok(index.includes('href="/styles.css?v=0.4.0-ecosystem-1"'), 'the page loads the current ecosystem stylesheet without a stale asset')
+    assert.ok(index.includes('href="/styles.css?v=0.5.0-navigation-1"'), 'the page loads the current navigation stylesheet without a stale asset')
     assert.ok(index.includes('src="/graph-animation.js?v=0.3.9-hero-graph-6"'), 'the page loads the deterministic hero graph without a stale asset')
     assert.ok(index.includes('src="/hero-field.js?v=0.3.9-hero-field-1"'), 'the page loads the ambient hero field without a stale asset')
     assert.match(index, /https:\/\/weavatrix\.com\/og-image-v4\.png/)
@@ -56,6 +56,22 @@ test('ecosystem page maps the public stack and keeps benchmark claims scoped', (
     assert.match(ecosystem, /not universal rankings/i)
     assert.match(ecosystem, /ripgrep was 1\.35x faster/i)
     assert.match(ecosystem, /private research track/i)
+})
+
+test('primary navigation exposes the ecosystem and blog on every product surface', () => {
+    const pages = ['index.html', 'ecosystem.html', 'refactor.html', 'blog.html']
+        .map(name => readFileSync(join(REPO_ROOT, 'site', name), 'utf8'))
+    for (const html of pages) {
+        assert.match(html, /<nav[^>]*aria-label="Primary"/)
+        assert.match(html, /href="\/ecosystem"/)
+        assert.match(html, /href="\/blog"/)
+    }
+    const index = pages[0]
+    assert.match(index, /class="portal-strip"/)
+    assert.match(index, /See the whole stack/)
+    assert.match(index, /Read the field notes/)
+    const styles = readFileSync(join(REPO_ROOT, 'site/styles.css'), 'utf8')
+    assert.doesNotMatch(styles, /nav\s*\{\s*display:\s*none/)
 })
 
 test('Refactor is a first-class product surface with the complete tool catalog', () => {
@@ -93,10 +109,10 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     const security = readFileSync(join(REPO_ROOT, 'site/security.html'), 'utf8')
     const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
     const readme = readFileSync(join(REPO_ROOT, 'README.md'), 'utf8')
-    for (const release of ['Core <small>1.9.0', 'Refactor <small>1.0.8', 'Online <small>0.3.2']) {
+    for (const release of ['Core <small>1.9.2', 'Refactor <small>1.0.11', 'Online <small>0.3.2']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
-    assert.match(index, /weavatrix-rust <small>2\.7\.2/)
+    assert.match(index, /weavatrix-rust <small>2\.7\.4/)
     assert.match(index, /typed analyzers, deterministic snapshots, evidence graphs/)
     assert.match(index, /It does not implement an MCP server/)
     assert.match(index, /cargo install weavatrix/)
@@ -172,7 +188,7 @@ test('release metadata and every local page reference resolve', () => {
     const jsonLd = index.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)
     assert.ok(jsonLd, 'the homepage carries structured software metadata')
     const metadata = JSON.parse(jsonLd[1])
-    assert.equal(metadata.softwareVersion, '1.9.0')
+    assert.equal(metadata.softwareVersion, '1.9.2')
     assert.match(metadata.description, /evidence infrastructure for AI software agents/)
 
     const pages = readdirSync(join(REPO_ROOT, 'site')).filter(name => extname(name) === '.html')

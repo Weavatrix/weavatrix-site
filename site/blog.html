@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weavatrix Blog — field notes from the evidence graph</title>
+<meta name="description" content="Engineering notes on repository graphs, retrieval, memory, proof, and safe agent infrastructure from Weavatrix.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://weavatrix.com/blog">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Weavatrix">
+<meta property="og:title" content="Weavatrix Blog — field notes from the evidence graph">
+<meta property="og:description" content="Design decisions, measured claims, trust boundaries, and research for AI software agents.">
+<meta property="og:url" content="https://weavatrix.com/blog">
+<meta property="og:image" content="https://weavatrix.com/og-image-v4.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Weavatrix Blog">
+<meta name="twitter:description" content="Field notes on evidence infrastructure for AI software agents.">
+<meta name="twitter:image" content="https://weavatrix.com/og-image-v4.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=0.5.0-navigation-1">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="mark" href="/" aria-label="Weavatrix home">
+      <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
+      WEAVATRIX
+    </a>
+    <nav aria-label="Primary"><a href="/">Overview</a><a href="/ecosystem">Ecosystem</a><a href="/blog" aria-current="page">Blog</a><a href="/refactor">Refactor</a><a href="https://github.com/Weavatrix">GitHub</a></nav>
+  </header>
+
+  <main>
+    <section class="blog-hero">
+      <span class="eyebrow">FIELD NOTES FROM THE EVIDENCE GRAPH</span>
+      <h1>How agent intelligence becomes <em>inspectable infrastructure</em>.</h1>
+      <p class="sub">Weavatrix is built in public. This journal explains the decisions behind its graphs, retrieval engines, memory, proof systems, trust boundaries, and research—along with the limits of every claim.</p>
+    </section>
+
+    <nav class="article-index" aria-label="Blog articles">
+      <a href="#repository-memory"><span>01</span><strong>The repository should remember more than the prompt</strong></a>
+      <a href="#trust-boundaries"><span>02</span><strong>Three trust boundaries for agent tooling</strong></a>
+      <a href="#measured-speed"><span>03</span><strong>Fast, with the scope attached</strong></a>
+    </nav>
+
+    <section class="journal" aria-label="Latest articles">
+      <article id="repository-memory" class="journal-entry">
+        <div class="entry-meta"><span>ARCHITECTURE</span><time datetime="2026-08-24">24 AUG 2026</time></div>
+        <h2>The repository should remember more than the prompt</h2>
+        <p>A coding agent usually arrives with a short-lived context window and leaves with most of its investigation discarded. The next agent pays for orientation again, and architectural intent is reconstructed from filenames, search results, and confidence.</p>
+        <p>Weavatrix treats repository understanding as durable evidence instead: typed nodes, relations, exact source spans, revisions, provenance, and bounded memory. A question can begin with a small projection of that graph and expand only when the evidence requires it.</p>
+        <p>The goal is not to make the model sound more certain. It is to let the agent show what it observed, what remains unproven, and which revision made the answer true.</p>
+        <div class="entry-links"><a href="/ecosystem#engines">Explore the engines</a><a href="https://github.com/Weavatrix/weavatrix-memory">Memory source</a></div>
+      </article>
+
+      <article id="trust-boundaries" class="journal-entry">
+        <div class="entry-meta"><span>AGENT SAFETY</span><time datetime="2026-08-24">24 AUG 2026</time></div>
+        <h2>Three trust boundaries for agent tooling</h2>
+        <p>Understanding code, changing code, and sending evidence across a network are different powers. Packaging them behind one opaque switch makes an agent convenient, but makes its authority hard to inspect.</p>
+        <p>Weavatrix keeps them separate. Core is source-read-only and network-free. Refactor adds reviewed local mutation with preview, confirmation, journaling, and rollback. Online owns the explicitly authorized network boundary without silently bundling either local layer.</p>
+        <p>The separation costs a little more explanation. It also means installation, context size, and runtime configuration cannot quietly grant a capability the user never intended.</p>
+        <div class="entry-links"><a href="/#products">Compare the boundaries</a><a href="/refactor">Read about Refactor</a></div>
+      </article>
+
+      <article id="measured-speed" class="journal-entry">
+        <div class="entry-meta"><span>PERFORMANCE</span><time datetime="2026-08-24">24 AUG 2026</time></div>
+        <h2>Fast, with the scope attached</h2>
+        <p>A benchmark without its fixture, platform, cache state, output contract, and losing cases is marketing—not evidence. Weavatrix publishes the boundary around its performance claims so agents and people can decide whether the comparison applies.</p>
+        <p>The resident search index is dramatically faster than starting a fresh ripgrep process on one disclosed Windows fixture; on a disclosed Ubuntu fixture, ripgrep wins. Git and filesystem results are published with exact parity contracts and reproducible sources rather than promoted as universal rankings.</p>
+        <p>Speed matters because bounded retrieval protects context and latency. Honesty about scope matters because an agent must never turn one favorable measurement into a claim about every repository.</p>
+        <div class="entry-links"><a href="/ecosystem#proof">See measured proof</a><a href="https://github.com/Weavatrix/weavatrix-search#benchmarks">Reproduce search evidence</a></div>
+      </article>
+    </section>
+  </main>
+
+  <footer><div>© 2026 Weavatrix · Evidence over confidence</div><div><a href="/ecosystem">Ecosystem</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a> · <a href="https://github.com/Weavatrix">GitHub</a></div></footer>
+</div>
+</body>
+</html>

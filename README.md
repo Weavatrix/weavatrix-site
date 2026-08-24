@@ -12,9 +12,9 @@ The production copy tracks the current public family:
 
 | Product | Release | License | Boundary |
 | --- | --- | --- | --- |
-| `weavatrix` | 1.9.0, Rust engine 2.7.2 | MIT | 43 read-only, network-free MCP tools via Cargo or npm |
-| `weavatrix-rust` | 2.7.2 | MIT | protocol-independent repository-intelligence engine and library |
-| `weavatrix-refactor` | 1.0.8 | MIT | hash-bound local source edits and drift-checked rollback |
+| `weavatrix` | 1.9.2, Rust engine 2.7.4 | MIT | 43 read-only, network-free MCP tools via Cargo or npm |
+| `weavatrix-rust` | 2.7.4 | MIT | protocol-independent repository-intelligence engine and library |
+| `weavatrix-refactor` | 1.0.11 | MIT | hash-bound local source edits and drift-checked rollback |
 | `weavatrix-online` | 0.3.2 | MIT | seven explicit source-free network methods; Core and Refactor remain separate |
 
 The engine recognizes 24 code, contract, configuration, document, and UI-source
@@ -29,7 +29,7 @@ the engine; this repo owns everything the site needs, including its deploy confi
 
 ## Layout
 
-- `site/` — the pages and assets served at weavatrix.com (overview, ecosystem, Refactor,
+- `site/` — the pages and assets served at weavatrix.com (overview, ecosystem, blog, Refactor,
   security, privacy, licenses, favicons, OG images, and deterministic graph animation)
 - `wrangler.jsonc` — Cloudflare static-assets Worker config (`weavatrix.com` + `www` custom domains)
 - `.github/workflows/deploy-site.yml` — deploys on every push to `main` that touches the site
