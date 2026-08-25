@@ -31,7 +31,10 @@ test('site assets stay within the 300-line budget', () => {
 
 test('versioned asset references are current and the hero animation stays deterministic', () => {
     const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
-    assert.ok(index.includes('href="/styles.css?v=0.5.0-navigation-1"'), 'the page loads the current navigation stylesheet without a stale asset')
+    assert.ok(index.includes('href="/styles.css?v=0.5.1-mobile-hero-1"'), 'the page loads the current navigation stylesheet without a stale asset')
+    const styles = readFileSync(join(REPO_ROOT, 'site/styles.css'), 'utf8')
+    assert.match(styles, /@media \(max-width: 760px\)[\s\S]*\.hero-graph \{ display: none; \}/)
+    assert.doesNotMatch(styles, /@media \(max-width: 760px\)[\s\S]*#hero-field \{ display: none; \}/)
     assert.ok(index.includes('src="/graph-animation.js?v=0.3.9-hero-graph-6"'), 'the page loads the deterministic hero graph without a stale asset')
     assert.ok(index.includes('src="/hero-field.js?v=0.3.9-hero-field-1"'), 'the page loads the ambient hero field without a stale asset')
     assert.match(index, /https:\/\/weavatrix\.com\/og-image-v4\.png/)
