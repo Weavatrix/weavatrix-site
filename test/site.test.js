@@ -83,8 +83,24 @@ test('the engineering journal publishes Hetero as a scoped research article', ()
     assert.match(blog, /Performance PASS is not quality PASS/)
     assert.match(blog, /approximate and off by default/)
     assert.ok(blog.includes('href="/hetero"'), 'the article links to the complete evidence page')
-    assert.ok(blog.includes('href="/blog.css?v=0.1.1"'), 'the article layout uses its current stylesheet')
+    assert.ok(blog.includes('href="/blog.css?v=0.2.0"'), 'the article layout uses its current stylesheet')
     assert.doesNotMatch(blog, /github\.com\/Weavatrix\/weavatrix-hetero/i)
+})
+
+test('the journal is full-bleed and publishes a scoped MCP catalog article', () => {
+    const blog = readFileSync(join(REPO_ROOT, 'site/blog.html'), 'utf8')
+    const css = readFileSync(join(REPO_ROOT, 'site/blog.css'), 'utf8')
+    assert.match(blog, /class="blog-page"/)
+    assert.ok(blog.includes('id="catalog-is-not-context"'), 'the catalog article is addressable')
+    assert.ok(blog.includes('src="/hero-field.js?v=0.3.9-hero-field-1"'), 'the journal uses the ambient field')
+    for (const claim of ['9,331 to 485', 'o200k_base', '94.8%', '12/12', 'token_budget', 'Tool Search']) {
+        assert.ok(blog.includes(claim), `${claim} is retained in the catalog article`)
+    }
+    assert.ok(blog.includes('A smaller catalog is not a permission grant'))
+    assert.ok(blog.includes('None of this is a claim that every Weavatrix session costs 485 tokens'))
+    assert.match(css, /\.blog-page \.wrap \{[^}]*max-width:\s*none/)
+    assert.match(css, /--blog-gutter/)
+    assert.match(blog, /Independent agent write-ups measured 141k tokens/)
 })
 
 test('primary navigation exposes the ecosystem and blog on every product surface', () => {
@@ -138,10 +154,10 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     const security = readFileSync(join(REPO_ROOT, 'site/security.html'), 'utf8')
     const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
     const readme = readFileSync(join(REPO_ROOT, 'README.md'), 'utf8')
-    for (const release of ['Core <small>1.9.2', 'Refactor <small>1.0.11', 'Online <small>0.3.2']) {
+    for (const release of ['Core <small>1.10.0', 'Refactor <small>1.0.11', 'Online <small>0.3.2']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
-    assert.match(index, /weavatrix-rust <small>2\.7\.4/)
+    assert.match(index, /weavatrix-rust <small>2\.9\.0/)
     assert.match(index, /typed analyzers, deterministic snapshots, evidence graphs/)
     assert.match(index, /It does not implement an MCP server/)
     assert.match(index, /cargo install weavatrix/)
@@ -217,7 +233,7 @@ test('release metadata and every local page reference resolve', () => {
     const jsonLd = index.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)
     assert.ok(jsonLd, 'the homepage carries structured software metadata')
     const metadata = JSON.parse(jsonLd[1])
-    assert.equal(metadata.softwareVersion, '1.9.2')
+    assert.equal(metadata.softwareVersion, '1.10.0')
     assert.match(metadata.description, /evidence infrastructure for AI software agents/)
 
     const pages = readdirSync(join(REPO_ROOT, 'site')).filter(name => extname(name) === '.html')
