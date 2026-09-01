@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weavatrix Blog — field notes from the evidence graph</title>
-<meta name="description" content="Engineering notes on repository graphs, retrieval, memory, proof, heterogeneous inference, and safe agent infrastructure from Weavatrix.">
+<meta name="description" content="Engineering notes on repository graphs, MCP context budgets, retrieval, memory, proof, heterogeneous inference, and safe agent infrastructure from Weavatrix.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://weavatrix.com/blog">
 <meta property="og:type" content="website">
@@ -19,9 +19,12 @@
 <meta name="twitter:image" content="https://weavatrix.com/og-image-v4.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/styles.css?v=0.5.1-mobile-hero-1">
-<link rel="stylesheet" href="/blog.css?v=0.1.1">
+<link rel="stylesheet" href="/blog.css?v=0.2.0">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Blog","name":"Weavatrix Blog","url":"https://weavatrix.com/blog","description":"Field notes from the Weavatrix evidence graph."}
+</script>
 </head>
-<body>
+<body class="blog-page">
 <div class="wrap">
   <header>
     <a class="mark" href="/" aria-label="Weavatrix home">
@@ -32,20 +35,47 @@
   </header>
 
   <main>
-    <section class="blog-hero">
-      <span class="eyebrow">FIELD NOTES FROM THE EVIDENCE GRAPH</span>
-      <h1>How agent intelligence becomes <em>inspectable infrastructure</em>.</h1>
-      <p class="sub">Weavatrix is built in public. This journal explains the decisions behind its graphs, retrieval engines, memory, proof systems, trust boundaries, and research—along with the limits of every claim.</p>
-    </section>
+    <div class="blog-stage">
+      <div id="hero-field" aria-hidden="true"></div>
+      <section class="blog-hero">
+        <span class="eyebrow">FIELD NOTES FROM THE EVIDENCE GRAPH</span>
+        <h1>How agent intelligence becomes <em>inspectable infrastructure</em>.</h1>
+        <p class="sub">Weavatrix is built in public. This journal explains the decisions behind its graphs, retrieval engines, memory, proof systems, trust boundaries, and research—along with the limits of every claim.</p>
+      </section>
 
-    <nav class="article-index" aria-label="Blog articles">
-      <a href="#heterogeneous-inference"><span>01</span><strong>Heterogeneous inference, measured rather than assumed</strong></a>
-      <a href="#repository-memory"><span>02</span><strong>The repository should remember more than the prompt</strong></a>
-      <a href="#trust-boundaries"><span>03</span><strong>Three trust boundaries for agent tooling</strong></a>
-      <a href="#measured-speed"><span>04</span><strong>Fast, with the scope attached</strong></a>
+      <section class="blog-pulse" aria-label="Measured catalog budgets">
+        <article><strong>485</strong><span>measured rename-profile catalog tokens, o200k_base</span></article>
+        <article><strong>9,331 → 485</strong><span>fixed MCP context on the published refactor fixture</span></article>
+        <article><strong>94.8%</strong><span>catalog reduction; protocol runs stayed 12/12</span></article>
+        <article><strong>44 tools</strong><span>Core operations exist as projections, not as one dump</span></article>
+      </section>
+
+      <article id="catalog-is-not-context" class="journal-entry blog-feature catalog-entry">
+        <div class="feature-rail">
+          <div class="entry-meta"><span>AGENT CONTEXT</span><time datetime="2026-09-01">01 SEP 2026</time></div>
+          <h2>The catalog is not the context</h2>
+          <p class="feature-deck">MCP solved the wiring problem. Treating every attached schema as the working set is how agents run out of window before they read the code.</p>
+          <div class="entry-links"><a href="/#products">Compare the boundaries</a><a href="/refactor#benchmark">Rename profile evidence</a><a href="https://github.com/Weavatrix/weavatrix-graph">weavatrix-graph</a></div>
+        </div>
+        <div class="feature-body">
+          <p>The Model Context Protocol won because a coding agent can attach GitHub, a browser, an issue tracker, and a repository graph through one tool surface. The failure mode arrived immediately after the win: operators treated the catalog as the context.</p>
+          <p>By August 2026 the official MCP registry listed tens of thousands of servers. A public audit of 15,329 reachable remote servers read 140,284 tool descriptions; some <code>instructions</code> strings exceeded 50,000 characters and would sit in the prefix of every turn. Independent agent write-ups measured 141k tokens consumed by 172 tool definitions before a prompt was typed. Industry notes in 2026 treated five to seven connected servers as a practical ceiling. Large consumers publicly cited schema overhead as a reason not to treat MCP as a default internal bus.</p>
+          <p>The client-side answer is lazy loading. Claude Code's Tool Search defers MCP schemas until a task needs them—published figures put a heavy catalog on the order of 134k tokens down to about 5k. That is a real defense. It is also a client defense. It does not make a 44-tool server small if the session still loads all 44, and it does not stop a single search from dumping a repository into the window.</p>
+          <p>Weavatrix treats the catalog as a projection of a graph, not as the graph. Core ships 44 read-only operations because the questions differ: orientation, impact, APIs, duplicates, architecture, Git, search, memory. A rename session does not need forty-four. On the published refactor fixture, <code>--profile=rename</code> reduced fixed MCP context from 9,331 to 485 exact <code>o200k_base</code> tokens (94.8%) while keeping the TypeScript, Rust, and Python protocol runs at 12/12. The profile narrows what the model can see; write authority still requires <code>WEAVATRIX_ALLOW_SOURCE_EDITS=1</code> and a plan-bound token. A smaller catalog is not a permission grant.</p>
+          <p>The second tax is output. Even a two-tool server can spend the window if every call returns unbounded source. Weavatrix tools take a <code>token_budget</code>. <code>change_impact</code> and <code>context_bundle</code> return a ranked workset with revision, span, extractor, and confidence—not the file tree. <code>weavatrix-graph</code> is why that slice can stay honest: a <code>calls</code> edge is a typed fact, not a cosine. Embeddings and grep remain useful for exploratory recall; they are a different kind of evidence. Weavatrix will not promote a similarity score into a caller list.</p>
+          <p>Tool Search and profiles compose. One keeps unused servers out of the prefix; the other keeps unused Weavatrix operations out of the product surface; bounded results keep the repository out of the prompt. None of this is a claim that every Weavatrix session costs 485 tokens, or that MCP itself is finished. It is a claim that the working set should be an inspectable slice of a revision-bound graph—and that a catalog which cannot name its budget is not context. It is overhead.</p>
+        </div>
+      </article>
+    </div>
+
+    <nav class="blog-deck" aria-label="Earlier field notes">
+      <a href="#heterogeneous-inference"><span>02 · APPLE SILICON</span><strong>Heterogeneous inference, measured rather than assumed</strong><p>Exact and approximate Apple M4 routes against Ollama, with the losses kept in the result.</p><em>Read the note →</em></a>
+      <a href="#repository-memory"><span>03 · ARCHITECTURE</span><strong>The repository should remember more than the prompt</strong><p>Typed nodes, revisions, and bounded memory instead of a discarded context window.</p><em>Read the note →</em></a>
+      <a href="#trust-boundaries"><span>04 · AGENT SAFETY</span><strong>Three trust boundaries for agent tooling</strong><p>Core reads. Refactor writes. Online networks. Installation must not smuggle a power.</p><em>Read the note →</em></a>
+      <a href="#measured-speed"><span>05 · PERFORMANCE</span><strong>Fast, with the scope attached</strong><p>Search, Git, and graph timings published with fixtures, platforms, and losing cases.</p><em>Read the note →</em></a>
     </nav>
 
-    <section class="journal" aria-label="Latest articles">
+    <section class="journal" aria-label="Earlier articles">
       <article id="heterogeneous-inference" class="journal-entry research-entry">
         <div class="entry-meta"><span>APPLE SILICON RESEARCH</span><time datetime="2026-08-24">24 AUG 2026</time></div>
         <h2>Heterogeneous inference, measured rather than assumed</h2>
@@ -89,5 +119,6 @@
 
   <footer><div>© 2026 Weavatrix · Evidence over confidence</div><div><a href="/ecosystem">Ecosystem</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a> · <a href="https://github.com/Weavatrix">GitHub</a></div></footer>
 </div>
+<script src="/hero-field.js?v=0.3.9-hero-field-1"></script>
 </body>
 </html>

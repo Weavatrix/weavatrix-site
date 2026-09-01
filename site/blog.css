@@ -1,12 +1,66 @@
-.article-index { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.research-entry { position: relative; overflow: hidden; border-color: rgba(64,224,200,.3); background: radial-gradient(circle at 88% 18%, rgba(64,224,200,.09), transparent 24rem), linear-gradient(145deg, rgba(22,23,34,.94), rgba(11,12,19,.97)); }
+.blog-page { --blog-gutter: clamp(20px, 4.2vw, 56px); }
+.blog-page .wrap { max-width: none; width: 100%; padding: 0; }
+.blog-page header, .blog-page footer { padding-left: var(--blog-gutter); padding-right: var(--blog-gutter); }
+.blog-page header { border-bottom: 1px solid rgba(41,42,55,.9); background: rgba(9,10,16,.78); backdrop-filter: blur(16px); }
+.blog-page header nav a[aria-current="page"] { color: var(--text); }
+.blog-page footer { margin-top: 0; }
+
+.blog-stage { position: relative; isolation: isolate; }
+.blog-page #hero-field { top: 0; height: 100%; z-index: 0; }
+.blog-hero, .blog-pulse, .blog-feature, .blog-deck, .journal { position: relative; z-index: 1; }
+.blog-hero { max-width: none; width: 100%; padding: 72px var(--blog-gutter) 36px; }
+.blog-hero h1 { max-width: 22ch; font-size: clamp(42px, 7vw, 84px); }
+.blog-hero .sub { max-width: min(760px, 100%); font-size: 19px; }
+
+.blog-pulse { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0; padding: 8px var(--blog-gutter) 28px; }
+.blog-pulse article { min-width: 0; padding: 20px 22px; border: 1px solid var(--line); border-radius: 14px; background: linear-gradient(145deg, rgba(24,25,37,.88), rgba(12,13,20,.94)); }
+.blog-pulse strong { display: block; color: var(--accent2); font: 22px/1.15 var(--mono); }
+.blog-pulse span { display: block; margin-top: 8px; color: var(--muted); font-size: 12.5px; }
+
+.blog-feature { position: relative; display: grid; grid-template-columns: minmax(280px, .42fr) minmax(0, 1fr); gap: 28px 56px; width: 100%; max-width: none; margin: 0; padding: 56px var(--blog-gutter) 52px; overflow: hidden; border-radius: 0; border-left: 0; border-right: 0; }
+.blog-feature::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+.feature-rail { display: flex; flex-direction: column; min-width: 0; }
+.feature-rail h2 { margin: 14px 0 12px; font-size: clamp(32px, 4.6vw, 52px); }
+.feature-rail .entry-links { margin-top: auto; padding-top: 28px; }
+.feature-deck { margin: 0; color: #d5d8ea; font-size: 18px; }
+.feature-body p { max-width: none; }
+.feature-body p:first-child { margin-top: 0; }
+
+.blog-deck { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0; padding: 34px var(--blog-gutter) 18px; }
+.blog-deck a { display: flex; flex-direction: column; min-height: 198px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: linear-gradient(145deg, rgba(22,23,34,.9), rgba(11,12,19,.96)); transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.blog-deck a:hover { transform: translateY(-3px); border-color: rgba(139,124,255,.55); box-shadow: 0 18px 50px rgba(0,0,0,.22); }
+.blog-deck span { color: var(--accent2); font: 11px var(--mono); letter-spacing: .12em; }
+.blog-deck strong { display: block; margin: 12px 0 10px; color: #e4e6f4; font-size: 18px; line-height: 1.28; letter-spacing: -.02em; }
+.blog-deck p { margin: 0; color: var(--muted); font-size: 13.5px; }
+.blog-deck em { margin-top: auto; padding-top: 18px; color: var(--accent2); font: 12px var(--mono); font-style: normal; }
+
+.journal { display: grid; gap: 0; max-width: none; width: 100%; padding: 8px 0 72px; }
+.journal-entry { position: relative; display: grid; grid-template-columns: minmax(260px, .36fr) minmax(0, 1fr); gap: 12px 56px; width: 100%; margin: 0; padding: 48px var(--blog-gutter); border-radius: 0; border-left: 0; border-right: 0; border-bottom: 0; border-top: 0; }
+.blog-page .blog-feature.journal-entry { grid-template-columns: minmax(280px, .42fr) minmax(0, 1fr); padding: 56px var(--blog-gutter) 52px; }
+.journal-entry + .journal-entry { border-top: 1px solid var(--line); }
+.entry-meta, .journal-entry > h2 { grid-column: 1; }
+.journal-entry > p, .entry-links { grid-column: 2; }
+.blog-page .journal-entry p, .journal-entry > p { max-width: none; }
+.journal-entry > h2 { align-self: start; }
+.journal-entry > p:first-of-type { margin-top: 0; }
+.research-entry { overflow: hidden; border-color: rgba(64,224,200,.28); background: radial-gradient(circle at 88% 12%, rgba(64,224,200,.1), transparent 28rem), linear-gradient(145deg, rgba(22,23,34,.94), rgba(11,12,19,.97)); }
 .research-entry::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
 .research-entry .entry-meta span { color: var(--accent2); }
+.catalog-entry { border-color: rgba(139,124,255,.34); background: radial-gradient(circle at 12% 18%, rgba(124,108,255,.16), transparent 26rem), radial-gradient(circle at 92% 80%, rgba(64,224,200,.08), transparent 22rem), linear-gradient(145deg, rgba(20,21,32,.96), rgba(10,11,18,.98)); }
+.catalog-entry .entry-meta span { color: #c4b8ff; }
 
-@media (max-width: 900px) { .article-index { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 1100px) { .blog-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .blog-pulse { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .blog-feature, .journal-entry { grid-template-columns: 1fr; }
+  .entry-meta, .journal-entry > h2, .journal-entry > p, .entry-links { grid-column: 1; }
+  .journal-entry > p:first-of-type { margin-top: 15px; }
+}
 @media (max-width: 760px) {
-  .article-index { grid-template-columns: 1fr; }
-  .blog-hero { width: 100%; max-width: 100%; min-width: 0; }
-  .blog-hero h1 { width: 100%; max-width: 100%; font-size: clamp(38px, 11vw, 48px); overflow-wrap: anywhere; }
-  .blog-hero .sub { width: 100%; max-width: 100%; font-size: 17px; overflow-wrap: anywhere; }
+  .blog-pulse, .blog-deck { grid-template-columns: 1fr; }
+  .blog-hero { width: 100%; max-width: 100%; min-width: 0; padding: 56px var(--blog-gutter) 28px; }
+  .blog-hero h1, .blog-hero .sub, .feature-rail h2 { width: 100%; max-width: 100%; overflow-wrap: anywhere; }
+  .blog-hero h1 { font-size: clamp(38px, 11vw, 48px); }
+  .blog-feature, .journal-entry { padding: 32px var(--blog-gutter); }
+  .blog-deck a { min-height: 0; }
 }
