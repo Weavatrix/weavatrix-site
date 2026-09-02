@@ -41,6 +41,10 @@ test('versioned asset references are current and the hero animation stays determ
     assert.doesNotMatch(index, /og-image-v[123]\.png/)
     const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
     assert.match(refactor, /https:\/\/weavatrix\.com\/og-image-v4\.png/)
+    const seo = readFileSync(join(REPO_ROOT, 'site/seo.html'), 'utf8')
+    assert.match(seo, /https:\/\/weavatrix\.com\/og-image-v4\.png/)
+    assert.match(seo, /seo_audit/)
+    assert.match(seo, /weavatrix-seo mcp/)
     const animation = readFileSync(join(REPO_ROOT, 'site/graph-animation.js'), 'utf8')
     assert.doesNotThrow(() => new Function(animation), 'the extracted browser script parses')
     assert.doesNotMatch(animation, /Math\.random/, 'the hero graph layout stays deterministic')
@@ -53,7 +57,7 @@ test('versioned asset references are current and the hero animation stays determ
 
 test('ecosystem page maps the public stack and keeps benchmark claims scoped', () => {
     const ecosystem = readFileSync(join(REPO_ROOT, 'site/ecosystem.html'), 'utf8')
-    for (const project of ['weavatrix', 'weavatrix-rust', 'weavatrix-refactor', 'weavatrix-online', 'weavatrix-quality', 'weavatrix-graph', 'weavatrix-parse', 'weavatrix-scan', 'weavatrix-search', 'weavatrix-search-vector', 'weavatrix-semantic', 'weavatrix-memory', 'weavatrix-git', 'weavatrix-clone', 'weavatrix-lsp', 'weavatrix-edit', 'weavatrix-refactor-plan', 'weavatrix-worktree', 'weavatrix-rust-refactor', 'weavatrix-loom', 'weavatrix-js', 'weavatrix-refactor-js', 'weavatrix-site', 'weavatrix-hosted', 'weavatrix-blocks', 'weavatrix-hosted-enterprise', 'weavatrix-hetero']) {
+    for (const project of ['weavatrix', 'weavatrix-rust', 'weavatrix-refactor', 'weavatrix-online', 'weavatrix-quality', 'weavatrix-seo', 'weavatrix-graph', 'weavatrix-parse', 'weavatrix-scan', 'weavatrix-search', 'weavatrix-search-vector', 'weavatrix-semantic', 'weavatrix-memory', 'weavatrix-git', 'weavatrix-clone', 'weavatrix-lsp', 'weavatrix-edit', 'weavatrix-refactor-plan', 'weavatrix-worktree', 'weavatrix-rust-refactor', 'weavatrix-loom', 'weavatrix-js', 'weavatrix-refactor-js', 'weavatrix-site', 'weavatrix-hosted', 'weavatrix-blocks', 'weavatrix-hosted-enterprise', 'weavatrix-hetero']) {
         assert.match(ecosystem, new RegExp(`\\b${project}\\b`), `${project} is represented`)
     }
     assert.match(ecosystem, /not universal rankings/i)
@@ -83,7 +87,7 @@ test('the engineering journal publishes Hetero as a scoped research article', ()
     assert.match(blog, /Performance PASS is not quality PASS/)
     assert.match(blog, /approximate and off by default/)
     assert.ok(blog.includes('href="/hetero"'), 'the article links to the complete evidence page')
-    assert.ok(blog.includes('href="/blog.css?v=0.2.0"'), 'the article layout uses its current stylesheet')
+    assert.ok(blog.includes('href="/blog.css?v=0.2.1"'), 'the article layout uses its current stylesheet')
     assert.doesNotMatch(blog, /github\.com\/Weavatrix\/weavatrix-hetero/i)
 })
 
@@ -101,6 +105,102 @@ test('the journal is full-bleed and publishes a scoped MCP catalog article', () 
     assert.match(css, /\.blog-page \.wrap \{[^}]*max-width:\s*none/)
     assert.match(css, /--blog-gutter/)
     assert.match(blog, /Independent agent write-ups measured 141k tokens/)
+})
+
+const PAGES = ['index.html', 'ecosystem.html', 'blog.html', 'refactor.html', 'hetero.html',
+    'settings.html', 'privacy.html', 'security.html', 'license.html']
+
+function relativeLuminance(hex) {
+    const channels = [1, 3, 5].map(at => parseInt(hex.slice(at, at + 2), 16) / 255)
+        .map(value => value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4)
+    return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2]
+}
+
+function contrast(foreground, background) {
+    const light = Math.max(relativeLuminance(foreground), relativeLuminance(background))
+    const dark = Math.min(relativeLuminance(foreground), relativeLuminance(background))
+    return (light + 0.05) / (dark + 0.05)
+}
+
+test('every page resolves its appearance before the first paint', () => {
+    for (const name of PAGES) {
+        const html = readFileSync(join(REPO_ROOT, 'site', name), 'utf8')
+        assert.match(html, /href="\/theme\.css\?v=/, `${name} loads the appearance stylesheet`)
+        assert.match(html, /src="\/theme\.js\?v=/, `${name} loads the appearance controller`)
+        // The stamp has to be inline in the head: an external file would paint
+        // the wrong theme first and correct it after, which is the flash the
+        // whole arrangement exists to avoid.
+        const head = html.slice(0, html.indexOf('</head>'))
+        assert.match(head, /data-theme-resolved/, `${name} stamps the resolved theme in its head`)
+        assert.match(html, /data-theme-choice="auto"/, `${name} offers the control`)
+        assert.match(html, /data-theme-choice="light"/, `${name} offers light`)
+        assert.match(html, /data-theme-choice="dark"/, `${name} offers dark`)
+    }
+})
+
+test('the appearance defaults to auto and the choice stays in the browser', () => {
+    const controller = readFileSync(join(REPO_ROOT, 'site/theme.js'), 'utf8')
+    assert.match(controller, /CHOICES = \['auto', 'light', 'dark'\]/)
+    assert.match(controller, /return CHOICES\.indexOf\(value\) === -1 \? 'auto' : value/,
+        'an absent or unrecognised stored value falls back to auto')
+    assert.match(controller, /prefers-color-scheme: light/, 'auto reads the system preference')
+    assert.match(controller, /media\.addEventListener\('change'/,
+        'a system change while on auto repaints without a reload')
+    assert.doesNotMatch(controller, /document\.cookie|fetch\(|XMLHttpRequest/,
+        'the choice is never sent anywhere')
+
+    const settings = readFileSync(join(REPO_ROOT, 'site/settings.html'), 'utf8')
+    assert.match(settings, /aria-pressed="true"[^>]*>Auto|data-theme-choice="auto" aria-pressed="true"/,
+        'auto is the pressed option on a first visit')
+    assert.match(settings, /weavatrix-theme/, 'the page names the key it writes')
+})
+
+test('the light palette clears WCAG AA for body text', () => {
+    const css = readFileSync(join(REPO_ROOT, 'site/theme.css'), 'utf8')
+    const block = css.slice(css.indexOf(':root[data-theme-resolved="light"] {'))
+    const token = name => {
+        const found = block.match(new RegExp(`--${name}: (#[0-9a-f]{6})`))
+        assert.ok(found, `the light palette declares --${name}`)
+        return found[1]
+    }
+    const background = token('bg')
+    // Every colour that carries words on the page background, including both
+    // accents: the dark theme's #8b7cff and #37d7be reach 1.9 and 2.0 here,
+    // which is why the light theme darkens them rather than reusing them.
+    for (const name of ['text', 'muted', 'accent', 'accent2', 'warn']) {
+        const ratio = contrast(token(name), background)
+        assert.ok(ratio >= 4.5,
+            `--${name} (${token(name)}) reaches only ${ratio.toFixed(2)}:1 on ${background}`)
+    }
+})
+
+test('the Refactor chip has a colour to use', () => {
+    // `--warn` shipped in the Refactor chip and its gradient without ever being
+    // declared, so the chip rendered inherited near-white text inside an amber
+    // border.
+    const theme = readFileSync(join(REPO_ROOT, 'site/theme.css'), 'utf8')
+    const styles = readFileSync(join(REPO_ROOT, 'site/styles.css'), 'utf8')
+    assert.match(styles, /var\(--warn\)/, 'the chip still uses the token')
+    assert.match(theme, /^\s*--warn: #[0-9a-f]{6};/m, 'and the token is declared')
+})
+
+test('the featured journal entry collapses to one column on a narrow screen', () => {
+    const css = readFileSync(join(REPO_ROOT, 'site/blog.css'), 'utf8')
+    // The featured entry is styled by a three-class selector, and a media query
+    // adds no specificity, so a collapse written as `.blog-feature` alone loses
+    // to it and the article body is clipped off the side of a phone screen.
+    const narrow = css.slice(css.indexOf('@media (max-width: 900px)'))
+    assert.match(
+        narrow,
+        /\.blog-page \.blog-feature\.journal-entry \{ grid-template-columns: 1fr;/,
+        'the narrow-screen collapse must match the desktop selector it overrides'
+    )
+    const phone = css.slice(css.indexOf('@media (max-width: 760px)'))
+    assert.match(
+        phone,
+        /\.blog-page \.blog-feature\.journal-entry \{ padding:/,
+        'the narrow-screen padding must match the desktop selector it overrides'
+    )
 })
 
 test('primary navigation exposes the ecosystem and blog on every product surface', () => {

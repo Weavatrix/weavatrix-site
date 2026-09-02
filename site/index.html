@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -43,7 +43,7 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/styles.css?v=0.5.1-mobile-hero-1">
+<link rel="stylesheet" href="/styles.css?v=0.5.1-mobile-hero-1"><link rel="stylesheet" href="/theme.css?v=0.1.0"><script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
 </head>
 <body>
 <div class="wrap">
@@ -52,7 +52,7 @@
       <svg width="26" height="26" viewBox="0 0 100 100"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
       WEAVATRIX <span class="badge">1.10.0</span>
     </div>
-    <nav aria-label="Primary"><a href="/ecosystem">Ecosystem</a><a href="/blog">Blog</a><a href="#products">Products</a><a href="/refactor">Refactor</a><a href="https://github.com/Weavatrix">GitHub</a></nav>
+    <nav aria-label="Primary"><a href="/ecosystem">Ecosystem</a><a href="/blog">Blog</a><a href="#products">Products</a><a href="/seo">SEO</a><a href="/refactor">Refactor</a><a href="https://github.com/Weavatrix">GitHub</a><div class="theme-switch" role="group" aria-label="Appearance"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></nav>
   </header>
   <div class="hero">
     <div id="hero-field" aria-hidden="true"></div>
@@ -78,6 +78,7 @@
     </div>
   </div>
   <section class="portal-strip" aria-label="Explore Weavatrix">
+    <a class="portal-card" href="/seo"><span>SEO</span><strong>Search Evidence Graph</strong><p>CLI and 15 MCP tools. Audit the live site and name the source that produced it.</p></a>
     <a class="portal-card" href="/ecosystem"><span>ECOSYSTEM</span><strong>See the whole stack</strong><p>Agent products, Rust engines, measured proof, research, and every public project.</p></a>
     <a class="portal-card" href="/blog"><span>BLOG</span><strong>Read the field notes</strong><p>Design decisions, benchmarks, trust boundaries, and research from the graph.</p></a>
     <a class="portal-card" href="/ecosystem#research"><span>RESEARCH</span><strong>Follow emerging intelligence</strong><p>Heterogeneous systems, semantic composition, durable memory, and verifiable agents.</p></a>
@@ -287,11 +288,12 @@ never overwrites active policy.</span></pre>
 
   <footer>
     <div>© 2026 Weavatrix · Core: <a href="/license">MIT</a> · Refactor: <a href="https://github.com/Weavatrix/weavatrix-refactor/blob/main/LICENSE">MIT</a> · Online: <a href="https://github.com/Weavatrix/weavatrix-online/blob/main/LICENSE.md">MIT</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a></div>
-    <div><a href="/ecosystem">Open-source ecosystem</a> · built with Weavatrix</div>
+    <div><a href="/ecosystem">Open-source ecosystem</a> · built with Weavatrix &middot; <a href="/settings">Settings</a></div>
   </footer>
 </div>
 
 <script src="/hero-field.js?v=0.3.9-hero-field-1"></script>
 <script src="/graph-animation.js?v=0.3.9-hero-graph-6"></script>
+<script src="/theme.js?v=0.1.0"></script>
 </body>
 </html>
