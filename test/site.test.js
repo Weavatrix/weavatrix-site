@@ -31,7 +31,7 @@ test('site assets stay within the 300-line budget', () => {
 
 test('versioned asset references are current and the hero animation stays deterministic', () => {
     const index = readFileSync(join(REPO_ROOT, 'site/index.html'), 'utf8')
-    assert.ok(index.includes('href="/styles.css?v=0.5.1-mobile-hero-1"'), 'the page loads the current navigation stylesheet without a stale asset')
+    assert.ok(index.includes('href="/styles.css?v=0.5.2-seo-term"'), 'the page loads the current navigation stylesheet without a stale asset')
     const styles = readFileSync(join(REPO_ROOT, 'site/styles.css'), 'utf8')
     assert.match(styles, /@media \(max-width: 760px\)[\s\S]*\.hero-graph \{ display: none; \}/)
     assert.doesNotMatch(styles, /@media \(max-width: 760px\)[\s\S]*#hero-field \{ display: none; \}/)
@@ -45,6 +45,13 @@ test('versioned asset references are current and the hero animation stays determ
     assert.match(seo, /https:\/\/weavatrix\.com\/og-image-v4\.png/)
     assert.match(seo, /seo_audit/)
     assert.match(seo, /weavatrix-seo mcp/)
+    for (const tool of [
+        'seo_audit', 'seo_inventory', 'seo_opportunities', 'seo_plan', 'seo_gate',
+        'seo_compare', 'seo_query', 'seo_retrieve', 'seo_chunks', 'seo_similar',
+        'seo_explain', 'seo_diff', 'seo_links', 'seo_vectors', 'seo_observations',
+    ]) {
+        assert.ok(seo.includes(`<code>${tool}</code>`), `${tool} is documented on the product page`)
+    }
     const animation = readFileSync(join(REPO_ROOT, 'site/graph-animation.js'), 'utf8')
     assert.doesNotThrow(() => new Function(animation), 'the extracted browser script parses')
     assert.doesNotMatch(animation, /Math\.random/, 'the hero graph layout stays deterministic')
@@ -87,11 +94,11 @@ test('the engineering journal publishes Hetero as a scoped research article', ()
     assert.match(blog, /Performance PASS is not quality PASS/)
     assert.match(blog, /approximate and off by default/)
     assert.ok(blog.includes('href="/hetero"'), 'the article links to the complete evidence page')
-    assert.ok(blog.includes('href="/blog.css?v=0.2.1"'), 'the article layout uses its current stylesheet')
+    assert.ok(blog.includes('href="/blog.css?v=0.2.2-wrap"'), 'the article layout uses its current stylesheet')
     assert.doesNotMatch(blog, /github\.com\/Weavatrix\/weavatrix-hetero/i)
 })
 
-test('the journal is full-bleed and publishes a scoped MCP catalog article', () => {
+test('the journal matches the site wrap and publishes a scoped MCP catalog article', () => {
     const blog = readFileSync(join(REPO_ROOT, 'site/blog.html'), 'utf8')
     const css = readFileSync(join(REPO_ROOT, 'site/blog.css'), 'utf8')
     assert.match(blog, /class="blog-page"/)
@@ -102,13 +109,16 @@ test('the journal is full-bleed and publishes a scoped MCP catalog article', () 
     }
     assert.ok(blog.includes('A smaller catalog is not a permission grant'))
     assert.ok(blog.includes('None of this is a claim that every Weavatrix session costs 485 tokens'))
-    assert.match(css, /\.blog-page \.wrap \{[^}]*max-width:\s*none/)
-    assert.match(css, /--blog-gutter/)
+    assert.doesNotMatch(css, /\.blog-page \.wrap \{[^}]*max-width:\s*none/, 'the journal uses the same 1240px wrap as every other page')
+    assert.match(css, /--blog-gutter:\s*0/)
     assert.match(blog, /Independent agent write-ups measured 141k tokens/)
+    assert.ok(blog.includes('id="search-evidence-graph"'), 'the SEO article is addressable')
+    assert.match(blog, /Weavatrix SEO/)
+    assert.match(blog, /Search Evidence Graph/)
 })
 
 const PAGES = ['index.html', 'ecosystem.html', 'blog.html', 'refactor.html', 'hetero.html',
-    'settings.html', 'privacy.html', 'security.html', 'license.html']
+    'settings.html', 'privacy.html', 'security.html', 'license.html', 'seo.html']
 
 function relativeLuminance(hex) {
     const channels = [1, 3, 5].map(at => parseInt(hex.slice(at, at + 2), 16) / 255)
@@ -174,6 +184,19 @@ test('the light palette clears WCAG AA for body text', () => {
     }
 })
 
+test('terminal syntax stays light on a dark block in both themes', () => {
+    const styles = readFileSync(join(REPO_ROOT, 'site/styles.css'), 'utf8')
+    const theme = readFileSync(join(REPO_ROOT, 'site/theme.css'), 'utf8')
+    assert.match(styles, /--term-fg: #e8eaf6/)
+    assert.match(styles, /--term-prompt: #3ee0c4/)
+    assert.match(styles, /\.term pre \{[^}]*color: var\(--term-fg\)/)
+    assert.match(styles, /\.g \{ color: var\(--term-prompt\)/)
+    assert.match(styles, /\.scenario \.result \{ color: var\(--term-prompt\)/)
+    assert.doesNotMatch(styles, /\.g \{ color: var\(--accent2\)/)
+    assert.doesNotMatch(theme, /--term-fg:/, 'light theme must not rebind terminal foreground')
+    assert.doesNotMatch(theme, /--term-prompt:/, 'light theme must not rebind the prompt colour')
+})
+
 test('the Refactor chip has a colour to use', () => {
     // `--warn` shipped in the Refactor chip and its gradient without ever being
     // declared, so the chip rendered inherited near-white text inside an amber
@@ -203,13 +226,14 @@ test('the featured journal entry collapses to one column on a narrow screen', ()
     )
 })
 
-test('primary navigation exposes the ecosystem and blog on every product surface', () => {
-    const pages = ['index.html', 'ecosystem.html', 'refactor.html', 'blog.html', 'hetero.html']
+test('primary navigation exposes the ecosystem, blog, and SEO on every product surface', () => {
+    const pages = ['index.html', 'ecosystem.html', 'refactor.html', 'blog.html', 'hetero.html', 'seo.html']
         .map(name => readFileSync(join(REPO_ROOT, 'site', name), 'utf8'))
     for (const html of pages) {
         assert.match(html, /<nav[^>]*aria-label="Primary"/)
         assert.match(html, /href="\/ecosystem"/)
         assert.match(html, /href="\/blog"/)
+        assert.match(html, /href="\/seo"/)
     }
     const index = pages[0]
     assert.match(index, /class="portal-strip"/)
@@ -254,9 +278,12 @@ test('published product versions, MIT licenses, and native benchmark stay curren
     const security = readFileSync(join(REPO_ROOT, 'site/security.html'), 'utf8')
     const refactor = readFileSync(join(REPO_ROOT, 'site/refactor.html'), 'utf8')
     const readme = readFileSync(join(REPO_ROOT, 'README.md'), 'utf8')
-    for (const release of ['Core <small>1.10.0', 'Refactor <small>1.0.11', 'Online <small>0.3.2']) {
+    for (const release of ['Core <small>1.10.0', 'Weavatrix SEO <small>0.6.2', 'Refactor <small>1.0.11', 'Online <small>0.3.2']) {
         assert.ok(index.includes(release), `${release} is shown on the product grid`)
     }
+    assert.match(index, /Search Evidence Graph/)
+    assert.match(index, /weavatrix-seo mcp/)
+    assert.match(license, /weavatrix-seo/)
     assert.match(index, /weavatrix-rust <small>2\.9\.0/)
     assert.match(index, /typed analyzers, deterministic snapshots, evidence graphs/)
     assert.match(index, /It does not implement an MCP server/)

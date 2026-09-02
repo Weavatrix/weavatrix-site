@@ -5,15 +5,16 @@
 [![MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Static public surface for the [Weavatrix organization](https://github.com/Weavatrix): its vision,
-open-source ecosystem, Core, Refactor, Online, research direction, and reproducible evidence.
+open-source ecosystem, Core, SEO, Refactor, Online, research direction, and reproducible evidence.
 Plain HTML/CSS/JS, no build step, no framework, no dependencies.
 
 The production copy tracks the current public family:
 
 | Product | Release | License | Boundary |
 | --- | --- | --- | --- |
-| `weavatrix` | 1.9.2, Rust engine 2.7.4 | MIT | 43 read-only, network-free MCP tools via Cargo or npm |
-| `weavatrix-rust` | 2.7.4 | MIT | protocol-independent repository-intelligence engine and library |
+| `weavatrix` | 1.10.0, Rust engine 2.9.0 | MIT | 44 read-only, network-free MCP tools via Cargo or npm |
+| `weavatrix-rust` | 2.9.0 | MIT | protocol-independent repository-intelligence engine and library |
+| `weavatrix-seo` | 0.6.2 | MIT | Search Evidence Graph: CLI and 15 MCP tools are the same native binary |
 | `weavatrix-refactor` | 1.0.11 | MIT | hash-bound local source edits and drift-checked rollback |
 | `weavatrix-online` | 0.3.2 | MIT | seven explicit source-free network methods; Core and Refactor remain separate |
 
@@ -29,7 +30,7 @@ the engine; this repo owns everything the site needs, including its deploy confi
 
 ## Layout
 
-- `site/` — the pages and assets served at weavatrix.com (overview, ecosystem, blog, Refactor, Hetero research,
+- `site/` — the pages and assets served at weavatrix.com (overview, ecosystem, blog, SEO, Refactor, Hetero research,
   security, privacy, licenses, favicons, OG images, and deterministic graph animation)
 - `wrangler.jsonc` — Cloudflare static-assets Worker config (`weavatrix.com` + `www` custom domains)
 - `.github/workflows/deploy-site.yml` — deploys on every push to `main` that touches the site

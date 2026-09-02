@@ -7,11 +7,11 @@
 <meta name="description" content="Weavatrix privacy policy: local-first defaults, explicit opt-in network tools, and the access-controlled hosted preview.">
 <link rel="canonical" href="https://weavatrix.com/privacy">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="stylesheet" href="/legal.css">
+<link rel="stylesheet" href="/legal.css"><link rel="stylesheet" href="/theme.css?v=0.1.1-term"><script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="/">← weavatrix.com</a>
+  <a class="back" href="/">← weavatrix.com</a><div class="theme-switch" role="group" aria-label="Appearance"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div>
   <h1>Privacy Policy</h1>
   <div class="date">Effective: July 30, 2026</div>
 
@@ -29,6 +29,14 @@
   <code>.repository-id</code>, <code>graph.json</code>, <code>graph.prev.json</code> and, when used,
   <code>precision.json</code>. Advisory data is cached in <code>~/.weavatrix/advisories.json</code>.
   By default, no repository data leaves your machine.</p>
+
+  <h2>Separate search-evidence product (opt-in)</h2>
+  <p>The MIT <code>weavatrix-seo</code> package is a read-only Search Evidence Graph.
+  It does not write pages or apply patches. When you pass a <code>--site</code>
+  origin or call an MCP tool that crawls, it fetches only the public HTTP
+  destinations you named. MCP defaults to <code>--public-only</code> and refuses
+  loopback and private addresses. Derived snapshots stay on the machine that
+  ran the command. SEO does not send repository source to Weavatrix.</p>
 
   <h2>Separate local write product (opt-in)</h2>
   <p>The MIT Core does not edit application source. The separately installed MIT
@@ -94,5 +102,6 @@
   <a href="https://github.com/Weavatrix/weavatrix/security/advisories/new">GitHub Security Advisories</a>.
   See also the public <a href="/security">security summary</a> and <a href="/license">license</a>.</p>
 </div>
+<script src="/theme.js?v=0.1.0"></script>
 </body>
 </html>

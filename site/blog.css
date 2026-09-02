@@ -1,6 +1,4 @@
-.blog-page { --blog-gutter: clamp(20px, 4.2vw, 56px); }
-.blog-page .wrap { max-width: none; width: 100%; padding: 0; }
-.blog-page header, .blog-page footer { padding-left: var(--blog-gutter); padding-right: var(--blog-gutter); }
+.blog-page { --blog-gutter: 0; }
 .blog-page header { border-bottom: 1px solid rgba(41,42,55,.9); background: rgba(9,10,16,.78); backdrop-filter: blur(16px); }
 .blog-page header nav a[aria-current="page"] { color: var(--text); }
 .blog-page footer { margin-top: 0; }
@@ -49,18 +47,26 @@
 .catalog-entry { border-color: rgba(139,124,255,.34); background: radial-gradient(circle at 12% 18%, rgba(124,108,255,.16), transparent 26rem), radial-gradient(circle at 92% 80%, rgba(64,224,200,.08), transparent 22rem), linear-gradient(145deg, rgba(20,21,32,.96), rgba(10,11,18,.98)); }
 .catalog-entry .entry-meta span { color: #c4b8ff; }
 
+/* The featured entry is styled above by `.blog-page .blog-feature.journal-entry`,
+   three classes deep. A media query adds no specificity of its own, so every
+   narrow-screen override below has to carry that selector too - without it the
+   feature keeps its two desktop columns and its body is clipped off the side of
+   the screen by the `overflow: hidden` on the entry. */
 @media (max-width: 1100px) { .blog-deck { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 900px) {
   .blog-pulse { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .blog-feature, .journal-entry { grid-template-columns: 1fr; }
+  .blog-feature, .journal-entry,
+  .blog-page .blog-feature.journal-entry { grid-template-columns: 1fr; }
   .entry-meta, .journal-entry > h2, .journal-entry > p, .entry-links { grid-column: 1; }
   .journal-entry > p:first-of-type { margin-top: 15px; }
+  .feature-rail .entry-links { margin-top: 0; padding-top: 18px; }
 }
 @media (max-width: 760px) {
   .blog-pulse, .blog-deck { grid-template-columns: 1fr; }
   .blog-hero { width: 100%; max-width: 100%; min-width: 0; padding: 56px var(--blog-gutter) 28px; }
   .blog-hero h1, .blog-hero .sub, .feature-rail h2 { width: 100%; max-width: 100%; overflow-wrap: anywhere; }
   .blog-hero h1 { font-size: clamp(38px, 11vw, 48px); }
-  .blog-feature, .journal-entry { padding: 32px var(--blog-gutter); }
+  .blog-feature, .journal-entry,
+  .blog-page .blog-feature.journal-entry { padding: 32px var(--blog-gutter); }
   .blog-deck a { min-height: 0; }
 }

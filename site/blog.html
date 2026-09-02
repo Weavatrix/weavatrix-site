@@ -18,8 +18,8 @@
 <meta name="twitter:description" content="Field notes on evidence infrastructure for AI software agents.">
 <meta name="twitter:image" content="https://weavatrix.com/og-image-v4.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="stylesheet" href="/styles.css?v=0.5.1-mobile-hero-1">
-<link rel="stylesheet" href="/blog.css?v=0.2.0">
+<link rel="stylesheet" href="/styles.css?v=0.5.2-seo-term">
+<link rel="stylesheet" href="/blog.css?v=0.2.2-wrap"><link rel="stylesheet" href="/theme.css?v=0.1.1-term"><script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Blog","name":"Weavatrix Blog","url":"https://weavatrix.com/blog","description":"Field notes from the Weavatrix evidence graph."}
 </script>
@@ -31,7 +31,7 @@
       <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
       WEAVATRIX
     </a>
-    <nav aria-label="Primary"><a href="/">Overview</a><a href="/ecosystem">Ecosystem</a><a href="/blog" aria-current="page">Blog</a><a href="/refactor">Refactor</a><a href="https://github.com/Weavatrix">GitHub</a></nav>
+    <nav aria-label="Primary"><a href="/">Overview</a><a href="/ecosystem">Ecosystem</a><a href="/blog" aria-current="page">Blog</a><a href="/seo">SEO</a><a href="/refactor">Refactor</a><a href="https://github.com/Weavatrix">GitHub</a><div class="theme-switch" role="group" aria-label="Appearance"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></nav>
   </header>
 
   <main>
@@ -40,7 +40,7 @@
       <section class="blog-hero">
         <span class="eyebrow">FIELD NOTES FROM THE EVIDENCE GRAPH</span>
         <h1>How agent intelligence becomes <em>inspectable infrastructure</em>.</h1>
-        <p class="sub">Weavatrix is built in public. This journal explains the decisions behind its graphs, retrieval engines, memory, proof systems, trust boundaries, and research—along with the limits of every claim.</p>
+        <p class="sub">Weavatrix is built in public. This journal explains the decisions behind its graphs, Search Evidence Graph, retrieval engines, memory, proof systems, trust boundaries, and research—along with the limits of every claim.</p>
       </section>
 
       <section class="blog-pulse" aria-label="Measured catalog budgets">
@@ -69,13 +69,23 @@
     </div>
 
     <nav class="blog-deck" aria-label="Earlier field notes">
-      <a href="#heterogeneous-inference"><span>02 · APPLE SILICON</span><strong>Heterogeneous inference, measured rather than assumed</strong><p>Exact and approximate Apple M4 routes against Ollama, with the losses kept in the result.</p><em>Read the note →</em></a>
-      <a href="#repository-memory"><span>03 · ARCHITECTURE</span><strong>The repository should remember more than the prompt</strong><p>Typed nodes, revisions, and bounded memory instead of a discarded context window.</p><em>Read the note →</em></a>
-      <a href="#trust-boundaries"><span>04 · AGENT SAFETY</span><strong>Three trust boundaries for agent tooling</strong><p>Core reads. Refactor writes. Online networks. Installation must not smuggle a power.</p><em>Read the note →</em></a>
-      <a href="#measured-speed"><span>05 · PERFORMANCE</span><strong>Fast, with the scope attached</strong><p>Search, Git, and graph timings published with fixtures, platforms, and losing cases.</p><em>Read the note →</em></a>
-    </nav>
+      <a href="#search-evidence-graph"><span>02 · SEARCH EVIDENCE</span><strong>The site is not a crawler report</strong><p>Weavatrix SEO binds live HTTP to the code that produced it. CLI and MCP are the same binary.</p><em>Read the note →</em></a>
+      <a href="#heterogeneous-inference"><span>03 · APPLE SILICON</span><strong>Heterogeneous inference, measured rather than assumed</strong><p>Exact and approximate Apple M4 routes against Ollama, with the losses kept in the result.</p><em>Read the note →</em></a>
+      <a href="#repository-memory"><span>04 · ARCHITECTURE</span><strong>The repository should remember more than the prompt</strong><p>Typed nodes, revisions, and bounded memory instead of a discarded context window.</p><em>Read the note →</em></a>
+      <a href="#trust-boundaries"><span>05 · AGENT SAFETY</span><strong>Three trust boundaries for agent tooling</strong><p>Core reads. Refactor writes. Online networks. Installation must not smuggle a power.</p><em>Read the note →</em></a>
+      <a href="#measured-speed"><span>06 · PERFORMANCE</span><strong>Fast, with the scope attached</strong><p>Search, Git, and graph timings published with fixtures, platforms, and losing cases.</p><em>Read the note →</em></a>
+    <div class="theme-switch" role="group" aria-label="Appearance"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></nav>
 
     <section class="journal" aria-label="Earlier articles">
+      <article id="search-evidence-graph" class="journal-entry catalog-entry">
+        <div class="entry-meta"><span>SEARCH EVIDENCE</span><time datetime="2026-09-02">02 SEP 2026</time></div>
+        <h2>The site is not a crawler report</h2>
+        <p>A crawler tells you what a URL returned. It does not tell you which helper emitted the title, whether a canonical was even in the crawl, or whether a Google rich-result miss is the same thing as a schema.org vocabulary miss. Ranking tools then paint the silence green.</p>
+        <p>Weavatrix SEO is a Search Evidence Graph. Live HTTP, repository routes, schema, claims, and observations bind to one revision. A finding on a city service page can name the Next.js, Nuxt, or Astro producer. A target outside the crawl stays <code>UNMEASURED</code>. Mixed content is a subresource problem, not a navigation problem. CLI commands and fifteen MCP tools are the same native binary: <code>weavatrix-seo mcp</code> is the agent socket, not a second product.</p>
+        <p>SEO does not write pages, generate articles, or apply patches. <code>seo_plan</code> can hand a location to Weavatrix Refactor; the write still happens only through Refactor's gates. That is the point of a fourth public product: search evidence without smuggling mutation, and without pretending a crawler dump is architecture.</p>
+        <div class="entry-links"><a href="/seo">Weavatrix SEO</a><a href="https://www.npmjs.com/package/weavatrix-seo">npm</a><a href="https://crates.io/crates/weavatrix-seo">crates.io</a></div>
+      </article>
+
       <article id="heterogeneous-inference" class="journal-entry research-entry">
         <div class="entry-meta"><span>APPLE SILICON RESEARCH</span><time datetime="2026-08-24">24 AUG 2026</time></div>
         <h2>Heterogeneous inference, measured rather than assumed</h2>
@@ -101,9 +111,9 @@
         <div class="entry-meta"><span>AGENT SAFETY</span><time datetime="2026-08-24">24 AUG 2026</time></div>
         <h2>Three trust boundaries for agent tooling</h2>
         <p>Understanding code, changing code, and sending evidence across a network are different powers. Packaging them behind one opaque switch makes an agent convenient, but makes its authority hard to inspect.</p>
-        <p>Weavatrix keeps them separate. Core is source-read-only and network-free. Refactor adds reviewed local mutation with preview, confirmation, journaling, and rollback. Online owns the explicitly authorized network boundary without silently bundling either local layer.</p>
+        <p>Weavatrix keeps them separate. Core is source-read-only and network-free. SEO is a read-only Search Evidence Graph over the live origins you name plus the repository. Refactor adds reviewed local mutation with preview, confirmation, journaling, and rollback. Online owns the explicitly authorized cloud network boundary without silently bundling the others.</p>
         <p>The separation costs a little more explanation. It also means installation, context size, and runtime configuration cannot quietly grant a capability the user never intended.</p>
-        <div class="entry-links"><a href="/#products">Compare the boundaries</a><a href="/refactor">Read about Refactor</a></div>
+        <div class="entry-links"><a href="/#products">Compare the boundaries</a><a href="/seo">Read about SEO</a><a href="/refactor">Read about Refactor</a></div>
       </article>
 
       <article id="measured-speed" class="journal-entry">
@@ -117,8 +127,9 @@
     </section>
   </main>
 
-  <footer><div>© 2026 Weavatrix · Evidence over confidence</div><div><a href="/ecosystem">Ecosystem</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a> · <a href="https://github.com/Weavatrix">GitHub</a></div></footer>
+  <footer><div>© 2026 Weavatrix · Evidence over confidence</div><div><a href="/ecosystem">Ecosystem</a> · <a href="/seo">SEO</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a> · <a href="https://github.com/Weavatrix">GitHub</a> &middot; <a href="/settings">Settings</a></div></footer>
 </div>
 <script src="/hero-field.js?v=0.3.9-hero-field-1"></script>
+<script src="/theme.js?v=0.1.0"></script>
 </body>
 </html>

@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Weavatrix SEO — Search Evidence Graph for code-driven sites</title>
-<meta name="description" content="Weavatrix SEO audits the site you shipped, traces findings to source, and exposes the same engine as a CLI and 15 MCP tools. Read-only. Missing evidence is unmeasured.">
+<meta name="description" content="Weavatrix SEO is a Search Evidence Graph: audit the live site, name the code that produced it, and expose the same engine as a CLI and 15 MCP tools. Read-only. Missing evidence is unmeasured.">
 <link rel="canonical" href="https://weavatrix.com/seo">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Weavatrix">
 <meta property="og:title" content="Weavatrix SEO — audit, explain, plan">
 <meta property="og:description" content="CLI and MCP are the same native binary. Fifteen tools over a revision-bound Search Evidence Graph.">
 <meta property="og:url" content="https://weavatrix.com/seo">
 <meta property="og:image" content="https://weavatrix.com/og-image-v4.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="stylesheet" href="/styles.css?v=0.5.1-mobile-hero-1"><link rel="stylesheet" href="/theme.css?v=0.1.0"><script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
+<link rel="stylesheet" href="/styles.css?v=0.5.2-seo-term"><link rel="stylesheet" href="/theme.css?v=0.1.1-term"><script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
 </head>
 <body>
 <div class="wrap">
@@ -21,14 +22,14 @@
       <svg width="26" height="26" viewBox="0 0 100 100"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
       WEAVATRIX <span class="badge">SEO 0.6.2</span>
     </a>
-    <nav aria-label="Primary"><a href="/">Overview</a><a href="/ecosystem">Ecosystem</a><a href="#cli">CLI</a><a href="#mcp">MCP</a><a href="https://github.com/Weavatrix/weavatrix-seo">GitHub</a><div class="theme-switch" role="group" aria-label="Appearance"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></nav>
+    <nav aria-label="Primary"><a href="/">Overview</a><a href="/ecosystem">Ecosystem</a><a href="/blog">Blog</a><a href="/seo" aria-current="page">SEO</a><a href="/refactor">Refactor</a><a href="https://github.com/Weavatrix/weavatrix-seo">GitHub</a><div class="theme-switch" role="group" aria-label="Appearance"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></nav>
   </header>
   <main>
     <div class="hero">
       <div class="hero-inner">
         <span class="product-kicker">MIT · READ-ONLY · NATIVE</span>
         <h1>Audit the site you shipped. <em>Name the code that produced it.</em></h1>
-        <p class="sub">Weavatrix SEO is a Search Evidence Graph, not a detached crawler report. CLI and MCP are the same binary. Missing evidence stays unmeasured.</p>
+        <p class="sub">Weavatrix SEO is a Search Evidence Graph, not a detached crawler report. Live HTTP, repository routes, schema, claims, and observations bind to one revision. CLI and MCP are the same binary. Missing evidence stays unmeasured.</p>
         <a class="cta" href="https://www.npmjs.com/package/weavatrix-seo">Install from npm</a>
         <a class="cta2" href="#mcp">Add the MCP host ↓</a>
       </div>
@@ -36,12 +37,23 @@
         <div class="term-bar"><i></i><i></i><i></i></div>
         <pre><span class="c"># one native binary: CLI commands and MCP tools</span>
 <span class="g">$</span> npx -y weavatrix-seo audit --site https://example.com --json
-<span class="g">$</span> claude mcp add weavatrix-seo -- npx -y weavatrix-seo mcp --allow-root .</pre>
+<span class="g">$</span> claude mcp add weavatrix-seo -- npx -y weavatrix-seo mcp --allow-root .
+<span class="g">$</span> cargo install weavatrix-seo-cli --locked</pre>
       </div>
     </div>
+    <section id="why">
+      <h2>Why this is not another crawler</h2>
+      <p class="lead product-lead">A crawler scores pages. Weavatrix SEO names the producer. A finding on <code>/iphone-repair/haifa</code> can point at the Next.js helper that emitted the title. Silence never turns green.</p>
+      <div class="grid">
+        <div class="card"><h3><span class="dot t"></span>Code-aware</h3><p>Next.js App/Pages, Nuxt, and Astro families are predicted from source. Hybrid mode classifies SOURCE_ONLY versus RESPONSE_ONLY against the crawl budget.</p></div>
+        <div class="card"><h3><span class="dot"></span>Evidence-honest</h3><p>Authority, method, and scope sit on every finding. A Google rich-result miss is not a schema.org vocabulary miss. A target outside the crawl is <code>UNMEASURED</code>, not healthy.</p></div>
+        <div class="card"><h3><span class="dot t"></span>Agent-native</h3><p>Fifteen MCP tools match the CLI. An agent can query orphans, retrieve a service page, and explain a fingerprint without a shell.</p></div>
+        <div class="card"><h3><span class="dot"></span>Read-only</h3><p>SEO never writes pages, never generates articles, never applies patches. <code>seo_plan</code> can hand a location to Weavatrix Refactor; SEO still does not mutate source.</p></div>
+      </div>
+    </section>
     <section id="cli">
       <h2>CLI commands</h2>
-      <p class="lead product-lead">The binary is <code>weavatrix-seo</code>. <code>weavatrix-seo mcp</code> is the agent socket, not a second product.</p>
+      <p class="lead product-lead">The binary is <code>weavatrix-seo</code>. <code>weavatrix-seo mcp</code> is the agent socket, not a second product. Every command takes <code>--json</code>.</p>
       <div class="grid">
         <div class="card"><h3><span class="dot t"></span><code>audit</code></h3><p>Crawl + findings by axis, severity, and authority. <code>--ci</code> / <code>--baseline</code> / <code>--html</code>.</p></div>
         <div class="card"><h3><span class="dot"></span><code>inventory</code></h3><p>Measured URLs, routes, producers. No ranking.</p></div>
@@ -55,24 +67,38 @@
     </section>
     <section id="mcp">
       <h2>15 MCP tools — same engine</h2>
-      <p class="lead product-lead">Point Claude, Codex, or Cursor at <code>npx -y weavatrix-seo mcp --allow-root .</code></p>
+      <p class="lead product-lead">Point Claude, Codex, or Cursor at <code>npx -y weavatrix-seo mcp --allow-root .</code> MCP default is <code>--public-only</code>.</p>
       <div class="grid">
         <div class="card"><h3><code>seo_audit</code></h3><p>Findings with authority. Google rich-result ≠ schema.org vocabulary.</p></div>
-        <div class="card"><h3><code>seo_inventory</code></h3><p>The measured search surface.</p></div>
-        <div class="card"><h3><code>seo_query</code></h3><p>Orphans, noindex, missing H1 — without dumping the crawl.</p></div>
-        <div class="card"><h3><code>seo_retrieve</code> / <code>seo_chunks</code></h3><p>Candidate pages and answering chunks. Lexical, inferred.</p></div>
-        <div class="card"><h3><code>seo_explain</code></h3><p>One fingerprint to the source helper when the repo is in scope.</p></div>
-        <div class="card"><h3><code>seo_plan</code> / <code>seo_gate</code></h3><p>Architecture plan. CI verdict instead of an exit code.</p></div>
+        <div class="card"><h3><code>seo_inventory</code></h3><p>The measured search surface: URLs, routes, producers.</p></div>
+        <div class="card"><h3><code>seo_opportunities</code></h3><p>Construction work, not current errors.</p></div>
+        <div class="card"><h3><code>seo_plan</code></h3><p>Target search architecture. Read-only Refactor handoff.</p></div>
+        <div class="card"><h3><code>seo_gate</code></h3><p>CI verdict instead of an exit code.</p></div>
         <div class="card"><h3><code>seo_compare</code></h3><p>Locale, schema, FAQ, cardinality, H1 gaps.</p></div>
-        <div class="card"><h3><code>seo_links</code> / <code>seo_vectors</code></h3><p>Directed internal links from first-party page vectors.</p></div>
+        <div class="card"><h3><code>seo_query</code></h3><p>Orphans, noindex, missing H1 — without dumping the crawl.</p></div>
+        <div class="card"><h3><code>seo_retrieve</code></h3><p>Lexical candidate pages. Inferred, not exact.</p></div>
+        <div class="card"><h3><code>seo_chunks</code></h3><p>Answering chunks from first-party pages.</p></div>
+        <div class="card"><h3><code>seo_similar</code></h3><p>Near-duplicate first-party pages.</p></div>
+        <div class="card"><h3><code>seo_explain</code></h3><p>One fingerprint to the source helper when the repo is in scope.</p></div>
+        <div class="card"><h3><code>seo_diff</code></h3><p>Snapshot, audit JSON, or worktree deltas.</p></div>
+        <div class="card"><h3><code>seo_links</code></h3><p>Directed internal links from first-party page vectors.</p></div>
+        <div class="card"><h3><code>seo_vectors</code></h3><p>First-party lexical vectors. No embedding API on the default path.</p></div>
+        <div class="card"><h3><code>seo_observations</code></h3><p>GSC, logs, and AI-citation observations when you import them.</p></div>
       </div>
-      <pre>[mcp_servers.weavatrix-seo]
+      <div class="term">
+        <div class="term-bar"><i></i><i></i><i></i></div>
+        <pre><span class="c"># Codex ~/.codex/config.toml</span>
+[mcp_servers.weavatrix-seo]
 command = "npx"
-args = ["-y", "weavatrix-seo", "mcp", "--allow-root", "."]</pre>
+args = ["-y", "weavatrix-seo", "mcp", "--allow-root", "."]
+
+<span class="c"># Cursor mcp.json</span>
+<span class="c"># "weavatrix-seo": { "command": "npx", "args": ["-y", "weavatrix-seo", "mcp", "--allow-root", "."] }</span></pre>
+      </div>
     </section>
     <p class="license-note"><strong>Read-only.</strong> SEO does not write pages or apply patches. Off-crawl canonicals are UNMEASURED. Mixed content is subresources, not navigation. <a href="https://github.com/Weavatrix/weavatrix-seo">GitHub</a> · <a href="https://www.npmjs.com/package/weavatrix-seo">npm</a> · <a href="https://crates.io/crates/weavatrix-seo">crates.io</a></p>
   </main>
-  <footer><div>© 2026 Weavatrix</div><div><a href="/">Overview</a> · <a href="/ecosystem">Ecosystem</a> · <a href="https://github.com/Weavatrix">GitHub</a></div></footer>
+  <footer><div>© 2026 Weavatrix · SEO 0.6.2 · MIT</div><div><a href="/">Overview</a> · <a href="/ecosystem">Ecosystem</a> · <a href="/blog">Blog</a> · <a href="/refactor">Refactor</a> · <a href="https://github.com/Weavatrix/weavatrix-seo">GitHub</a> · <a href="/settings">Settings</a></div></footer>
 </div>
 <script src="/theme.js?v=0.1.0"></script>
 </body>

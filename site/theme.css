@@ -1,0 +1,190 @@
+/* Weavatrix appearance system.
+   `data-theme` records the visitor's choice (auto | light | dark) and
+   `data-theme-resolved` records what that choice means right now. The
+   bootstrap in every page head stamps both before first paint, so switching
+   never flashes and the light rules below are written once instead of twice.
+   With scripting off the site stays dark, which is what it has always been. */
+
+:root {
+  /* Used by the Refactor chip and its gradient since those shipped, but never
+     declared, so both fell back to an invalid colour. */
+  --warn: #ffc16b;
+}
+
+/* The light palette is authored, not inverted. Surfaces are near-white with a
+   cool cast, and both accents are darkened until body text clears WCAG AA on
+   the page background: #5b46e5 reaches 6.5:1 and #06776a reaches 5.1:1, where
+   the dark-theme #8b7cff and #37d7be would have reached 1.9:1 and 2.0:1. */
+:root[data-theme-resolved="light"] {
+  --bg: #fbfbfd;
+  --bg2: #f1f2f8;
+  --panel: #ffffff;
+  --line: #e2e4ef;
+  --text: #14151d;
+  --muted: #565b70;
+  --accent: #5b46e5;
+  --accent2: #06776a;
+  --warn: #8a5a00;
+}
+
+:root[data-theme-resolved="light"] body {
+  background:
+    radial-gradient(circle at 75% 5%, rgba(91, 70, 229, .10), transparent 31rem),
+    radial-gradient(circle at 7% 38%, rgba(6, 119, 106, .07), transparent 24rem),
+    var(--bg);
+}
+
+:root[data-theme-resolved="light"] ::selection { background: rgba(91, 70, 229, .22); }
+
+/* The particle field was drawn for a near-black page; at full strength it
+   reads as dirt on a white one. */
+:root[data-theme-resolved="light"] #hero-field { opacity: .4; }
+
+/* Cards were painted with dark translucent gradients that turn to mud over a
+   light background. */
+:root[data-theme-resolved="light"] .card,
+:root[data-theme-resolved="light"] .portal-card,
+:root[data-theme-resolved="light"] .blog-deck a,
+:root[data-theme-resolved="light"] .blog-pulse article,
+:root[data-theme-resolved="light"] .research-entry,
+:root[data-theme-resolved="light"] .catalog-entry {
+  background: linear-gradient(145deg, #ffffff, #f6f7fc);
+  box-shadow: 0 1px 2px rgba(20, 21, 29, .05);
+}
+
+:root[data-theme-resolved="light"] .card:hover,
+:root[data-theme-resolved="light"] .portal-card:hover,
+:root[data-theme-resolved="light"] .blog-deck a:hover {
+  border-color: rgba(91, 70, 229, .42);
+  box-shadow: 0 14px 34px rgba(20, 21, 29, .09);
+}
+
+/* Text tuned for a dark card. */
+:root[data-theme-resolved="light"] .product-card > p,
+:root[data-theme-resolved="light"] .feature-deck,
+:root[data-theme-resolved="light"] .blog-deck strong { color: #2f3346; }
+:root[data-theme-resolved="light"] .bench-table td { color: #2b2f42; }
+:root[data-theme-resolved="light"] .bench-table th { color: #5b6076; }
+:root[data-theme-resolved="light"] .proof-flow li::after { color: #8a90a8; }
+
+/* The soft violet that carries Online, "next", and the catalog note reads as
+   a wash on white. */
+:root[data-theme-resolved="light"] .online-product .product-kicker,
+:root[data-theme-resolved="light"] .next .tag,
+:root[data-theme-resolved="light"] .catalog-entry .entry-meta span,
+:root[data-theme-resolved="light"] .online-chip { color: #4635c4; }
+:root[data-theme-resolved="light"] .online-chip {
+  border-color: rgba(70, 53, 196, .42);
+  background: rgba(70, 53, 196, .07);
+}
+:root[data-theme-resolved="light"] .next .tag { background: rgba(70, 53, 196, .1); }
+:root[data-theme-resolved="light"] .later .tag { background: rgba(86, 91, 112, .12); }
+
+/* Terminals stay a dark block. Syntax uses --term-* from styles.css, which
+   this palette must not rebind: --text and --accent2 become dark in light
+   theme and would paint black commands onto #0c0d14. */
+:root[data-theme-resolved="light"] .term { box-shadow: 0 12px 32px rgba(20, 21, 29, .13); }
+:root[data-theme-resolved="light"] .product-card pre,
+:root[data-theme-resolved="light"] .availability,
+:root[data-theme-resolved="light"] .scenario pre { border-color: var(--term-border); }
+
+/* The hero graph is drawn against the page, so its faintest strokes need the
+   contrast the dark background used to give them. */
+:root[data-theme-resolved="light"] .hg-node-label { fill: #474c64; }
+:root[data-theme-resolved="light"] .hg-edge { opacity: .36; }
+:root[data-theme-resolved="light"] .hg-cluster { stroke: rgba(91, 70, 229, .26); }
+:root[data-theme-resolved="light"] .hg-node-core { stroke: var(--bg); }
+
+/* The blog header is a sticky translucent bar over the page beneath it. */
+:root[data-theme-resolved="light"] .blog-page header { background: rgba(251, 251, 253, .82); }
+
+/* ---- the control itself ---- */
+
+.theme-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+}
+
+.theme-switch button {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 5px 9px;
+  background: transparent;
+  color: var(--muted);
+  font: 10px var(--mono, ui-monospace, Consolas, monospace);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color .15s ease, background .15s ease;
+}
+
+.theme-switch button:hover { color: var(--text); }
+
+/* The legal pages have no primary nav, so the control sits beside their back
+   link instead. */
+.back + .theme-switch { margin-left: 14px; vertical-align: middle; }
+
+/* Filling with the accent and lettering with the page background keeps the
+   selected state legible in both themes without a second colour rule. */
+.theme-switch button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+.theme-switch button:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
+
+/* ---- the settings surface ---- */
+
+.settings-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 26px 0 10px;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 18px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel);
+  color: inherit;
+  cursor: pointer;
+  transition: border-color .2s ease, transform .2s ease;
+}
+
+.theme-option:hover { transform: translateY(-2px); border-color: rgba(139, 124, 255, .5); }
+.theme-option[aria-pressed="true"] { border-color: var(--accent); }
+.theme-option:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; }
+.theme-option b { font: 12px var(--mono, ui-monospace, Consolas, monospace); letter-spacing: .1em; text-transform: uppercase; color: var(--accent2); }
+.theme-option strong { font-size: 16px; color: var(--text); }
+.theme-option span { color: var(--muted); font-size: 13.5px; }
+
+/* Each swatch is painted with literal colours rather than tokens: it has to
+   show what the other themes look like from inside the current one. */
+.theme-swatch { display: flex; height: 34px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.theme-swatch i { flex: 1; }
+.swatch-auto i:first-child { background: #090a10; }
+.swatch-auto i:last-child { background: #fbfbfd; }
+.swatch-light i:first-child { background: #fbfbfd; }
+.swatch-light i:nth-child(2) { background: #5b46e5; max-width: 26%; }
+.swatch-light i:last-child { background: #06776a; max-width: 18%; }
+.swatch-dark i:first-child { background: #090a10; }
+.swatch-dark i:nth-child(2) { background: #8b7cff; max-width: 26%; }
+.swatch-dark i:last-child { background: #37d7be; max-width: 18%; }
+
+.settings-note { margin-top: 26px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; background: var(--bg2); color: var(--muted); font-size: 13.5px; }
+.settings-note strong { color: var(--text); }
+
+@media (max-width: 820px) {
+  .settings-options { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 620px) {
+  header nav { flex-wrap: wrap; gap: 12px 16px; }
+  .theme-switch button { padding: 5px 7px; }
+}

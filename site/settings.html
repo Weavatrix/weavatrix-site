@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Settings — Weavatrix</title>
+<meta name="description" content="Choose how weavatrix.com looks: follow your system, or pin light or dark. The choice is stored in this browser and sent nowhere.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://weavatrix.com/settings">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Weavatrix">
+<meta property="og:title" content="Settings — Weavatrix">
+<meta property="og:description" content="Appearance follows your system by default. Pin light or dark whenever you prefer.">
+<meta property="og:url" content="https://weavatrix.com/settings">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/styles.css?v=0.5.2-seo-term">
+<link rel="stylesheet" href="/theme.css?v=0.1.1-term">
+<script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="mark" href="/" aria-label="Weavatrix home">
+      <svg width="26" height="26" viewBox="0 0 100 100" aria-hidden="true"><circle cx="30" cy="30" r="12" fill="#7c6cff"/><circle cx="72" cy="44" r="9" fill="#40e0c8"/><circle cx="44" cy="74" r="9" fill="#f0f2f8"/><line x1="30" y1="30" x2="72" y2="44" stroke="#7c6cff" stroke-width="4"/><line x1="30" y1="30" x2="44" y2="74" stroke="#40e0c8" stroke-width="4"/></svg>
+      WEAVATRIX
+    </a>
+    <nav aria-label="Primary"><a href="/">Overview</a><a href="/ecosystem">Ecosystem</a><a href="/blog">Blog</a><a href="/seo">SEO</a><a href="/refactor">Refactor</a><a href="https://github.com/Weavatrix">GitHub</a><div class="theme-switch" role="group" aria-label="Appearance"><button type="button" data-theme-choice="auto" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Light</button><button type="button" data-theme-choice="dark" aria-pressed="false">Dark</button></div></nav>
+  </header>
+
+  <main>
+    <section>
+      <span class="eyebrow">SETTINGS</span>
+      <h2>Appearance</h2>
+      <p class="lead">The site follows your operating system by default. Pin a theme if you would
+      rather it stayed put, and it will stay put on this browser until you change it back.</p>
+
+      <div class="settings-options" role="group" aria-label="Theme">
+        <button type="button" class="theme-option" data-theme-choice="auto" aria-pressed="true">
+          <span class="theme-swatch swatch-auto" aria-hidden="true"><i></i><i></i></span>
+          <b>Default</b>
+          <strong>Auto</strong>
+          <span>Follows your system. If you switch your device to light at sunset, this page
+          follows without a reload.</span>
+        </button>
+        <button type="button" class="theme-option" data-theme-choice="light" aria-pressed="false">
+          <span class="theme-swatch swatch-light" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b>Pinned</b>
+          <strong>Light</strong>
+          <span>Near-white surfaces with deepened accents. Terminal blocks stay dark, because
+          their colours carry meaning.</span>
+        </button>
+        <button type="button" class="theme-option" data-theme-choice="dark" aria-pressed="false">
+          <span class="theme-swatch swatch-dark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <b>Pinned</b>
+          <strong>Dark</strong>
+          <span>The original surface the graph animation and evidence panels were drawn
+          for.</span>
+        </button>
+      </div>
+
+      <p class="settings-note"><strong>Where this is kept.</strong> The choice is written to this
+      browser's local storage under <code>weavatrix-theme</code>. It is not a cookie, it is never
+      sent to a server, and it never leaves this device. Clearing site data returns the site to
+      Auto. With scripting off the site stays dark, which is what it has always been.</p>
+    </section>
+  </main>
+
+  <footer><div>© 2026 Weavatrix · Evidence over confidence</div><div><a href="/ecosystem">Ecosystem</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a> · <a href="https://github.com/Weavatrix">GitHub</a></div></footer>
+</div>
+<script src="/theme.js?v=0.1.0"></script>
+</body>
+</html>

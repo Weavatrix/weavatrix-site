@@ -39,11 +39,12 @@
   "author": { "@type": "Organization", "name": "Weavatrix", "url": "https://github.com/Weavatrix" },
   "sameAs": [
     "https://github.com/Weavatrix/weavatrix", "https://www.npmjs.com/package/weavatrix",
-    "https://github.com/Weavatrix/weavatrix-rust", "https://crates.io/crates/weavatrix-rust"
+    "https://github.com/Weavatrix/weavatrix-rust", "https://crates.io/crates/weavatrix-rust",
+    "https://github.com/Weavatrix/weavatrix-seo", "https://www.npmjs.com/package/weavatrix-seo", "https://crates.io/crates/weavatrix-seo", "https://weavatrix.com/seo"
   ]
 }
 </script>
-<link rel="stylesheet" href="/styles.css?v=0.5.1-mobile-hero-1"><link rel="stylesheet" href="/theme.css?v=0.1.0"><script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
+<link rel="stylesheet" href="/styles.css?v=0.5.2-seo-term"><link rel="stylesheet" href="/theme.css?v=0.1.1-term"><script>(function(){try{var k='weavatrix-theme',c=localStorage.getItem(k);if(c!=='light'&&c!=='dark')c='auto';var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches;var e=document.documentElement;e.setAttribute('data-theme',c);e.setAttribute('data-theme-resolved',c==='auto'?(m?'light':'dark'):c)}catch(e){}})()</script>
 </head>
 <body>
 <div class="wrap">
@@ -70,6 +71,7 @@
 <span class="c"># same for Codex:</span>
 <span class="g">$</span> codex mcp add weavatrix -- npx -y weavatrix mcp <span class="p">&lt;repoRoot&gt;</span>
 <span class="c"># or install the same MCP product from crates.io:</span>&#10;<span class="g">$</span> cargo install weavatrix&#10;<span class="g">$</span> weavatrix mcp <span class="p">&lt;repoRoot&gt;</span> --profile=code
+<span class="c"># Search Evidence Graph — CLI and MCP are the same binary</span>&#10;<span class="g">$</span> npx -y weavatrix-seo mcp --allow-root .
 
 <span class="c"># then, inside Claude Code:</span>
 <span class="g">›</span> what breaks if I change the auth middleware?
@@ -84,8 +86,8 @@
     <a class="portal-card" href="/ecosystem#research"><span>RESEARCH</span><strong>Follow emerging intelligence</strong><p>Heterogeneous systems, semantic composition, durable memory, and verifiable agents.</p></a>
   </section>
   <section id="products">
-    <h2>One family. Three explicit trust boundaries.</h2>
-    <p class="lead product-lead">The native Core is the network-free, source-read-only foundation. Refactor adds reviewed local writes. Online adds an explicitly authorized network connection. All three public packages are MIT.</p>
+    <h2>One family. Four public products. Explicit trust boundaries.</h2>
+    <p class="lead product-lead">Core is network-free and source-read-only. SEO is a Search Evidence Graph over the live site and the code that produced it. Refactor adds reviewed local writes. Online adds an authorized network connection. All four public packages are MIT.</p>
     <div class="product-grid">
       <article class="product-card core-product">
         <div class="product-head"><div><span class="product-kicker">NATIVE · FREE · OPEN SOURCE</span><h3>Weavatrix Core <small>1.10.0</small></h3></div><span class="license-chip mit-chip">MIT</span></div>
@@ -94,6 +96,7 @@
         <pre><span class="g">$</span> npx -y weavatrix mcp &lt;repoRoot&gt;&#10;<span class="g">$</span> cargo install weavatrix</pre>
         <div class="product-actions"><a href="https://crates.io/crates/weavatrix">crates.io</a><a href="https://www.npmjs.com/package/weavatrix">npm</a><a href="https://github.com/Weavatrix/weavatrix">GitHub</a><a href="/license">MIT license</a></div>
       </article>
+      <article class="product-card seo-product"><div class="product-head"><div><span class="product-kicker">SEARCH EVIDENCE · READ-ONLY · MIT</span><h3>Weavatrix SEO <small>0.6.2</small></h3></div><span class="license-chip mit-chip">MIT</span></div><p>A Search Evidence Graph for code-driven sites. CLI and 15 MCP tools are the same native binary. Live HTTP, repository routes, schema, and claims stay revision-bound. Missing evidence is UNMEASURED, never green by silence.</p><ul><li><code>weavatrix-seo mcp</code> is the agent socket, not a second product.</li><li>A finding can name the Next.js, Nuxt, or Astro helper that emitted the title.</li><li>SEO never writes pages or applies patches; <code>seo_plan</code> can hand a location to Refactor.</li></ul><pre><span class="g">$</span> npx -y weavatrix-seo audit --site https://example.com --json&#10;<span class="g">$</span> npx -y weavatrix-seo mcp --allow-root .</pre><div class="product-actions"><a href="/seo">Product</a><a href="https://www.npmjs.com/package/weavatrix-seo">npm</a><a href="https://crates.io/crates/weavatrix-seo">crates.io</a><a href="https://github.com/Weavatrix/weavatrix-seo">GitHub</a></div></article>
       <article class="product-card refactor-product">
         <div class="product-head"><div><span class="product-kicker">WRITE LAYER · OPEN SOURCE</span><h3>Weavatrix Refactor <small>1.0.11</small></h3></div><span class="license-chip refactor-chip">MIT</span></div>
         <p>A separately installed layer that composes Core and adds 11 MCP methods for evidence-backed plans, write-gated apply and drift-checked rollback.</p>
@@ -109,7 +112,7 @@
         <div class="product-actions"><a href="https://www.npmjs.com/package/weavatrix-online">npm</a><a href="https://github.com/Weavatrix/weavatrix-online">GitHub</a><a href="https://github.com/Weavatrix/weavatrix-online/blob/main/LICENSE.md">MIT</a></div>
       </article>
     </div>
-    <p class="license-note"><strong>Clear boundary:</strong> Core, Refactor, and the public Online connector are MIT. Their safety boundaries come from separate packages, capabilities, preview tokens, and explicit runtime configuration.</p>
+    <p class="license-note"><strong>Clear boundary:</strong> Core, SEO, Refactor, and the public Online connector are MIT. SEO reads the origins you name; it does not write pages. Write authority still requires Refactor's gates.</p>
   </section>
   <section id="rust"><h2>The protocol-independent Rust engine beneath Core.</h2><p class="lead"><code>weavatrix-rust@2.9.0</code> is the reusable repository-intelligence engine and library. It does not implement an MCP server; <code>weavatrix@1.10.0</code> owns the MCP adapter and ships the same native product through Cargo and npm.</p><div class="rust-grid"><article class="product-card rust-product"><div class="product-head"><div><span class="product-kicker">EMBEDDABLE · PURE RUST · READ ONLY</span><h3>weavatrix-rust <small>2.9.0</small></h3></div><span class="license-chip mit-chip">MIT</span></div><p>Build repository-aware Rust systems from typed analyzers, deterministic snapshots, evidence graphs and 44 bounded operations—without importing a transport into the engine.</p><ul><li>Lossless parsing across 24 code, API, infrastructure, configuration, document and UI-source surfaces.</li><li>Optional Git, search, clone, vector, semantic and temporal-memory capabilities layer evidence over <code>weavatrix-graph</code> 0.6.3.</li><li>Duplicate results keep families, members and pair IDs coherent after filtering; the standalone binary identifies itself as <code>weavatrix-rust</code>.</li><li>Use the Rust facade as a library or the standalone engine CLI; choose <code>weavatrix</code> when the application needs MCP.</li></ul><pre>[dependencies]&#10;weavatrix-rust = { version = "2.9.0", default-features = false }</pre><div class="product-actions"><a href="https://crates.io/crates/weavatrix-rust">crates.io</a><a href="https://docs.rs/weavatrix-rust">docs.rs</a><a href="https://github.com/Weavatrix/weavatrix-rust">GitHub</a><a href="https://github.com/Weavatrix/weavatrix-rust/blob/main/docs/benchmarks.md">Benchmarks</a></div></article><div class="rust-metrics" aria-label="Weavatrix Rust 2.0.2 basic release verification"><div class="metric"><strong>73.21 ms</strong><span>median full graph build, three basic release runs</span></div><div class="metric"><strong>7.436 ms</strong><span>unchanged repository refresh</span></div><div class="metric"><strong>0.661 ms</strong><span>mean hot graph-stats call across a 1,000-call load run</span></div><div class="metric"><strong>87.71%</strong><span>Rust line coverage release gate</span></div></div></div><p class="method-note">The basic 2.0.2 verification uses the native engine against its committed 192-file repository: 1,531 nodes and 7,287 edges. Coverage also records 80.57% of functions and 85.30% of regions. The short load run is intentionally bounded rather than presented as an exhaustive performance study. Reproducible methodology and component evidence remain published with the Rust repository.</p></section>
   <section id="features">
@@ -265,11 +268,7 @@ never overwrites active policy.</span></pre>
         </tbody>
       </table>
     </div>
-    <p class="method-note">Measured July 30, 2026 with the native 2.0.2 engine
-      executable. This is deliberately a basic release verification plus short
-      load, not a claim about every repository, machine, or workload.
-      <a href="https://github.com/Weavatrix/weavatrix-rust/blob/main/docs/benchmarks.md">Methodology and reproducible evidence</a>
-      remain versioned with the engine; <a href="https://github.com/Weavatrix/weavatrix/blob/main/docs/benchmarks.md">installed-package evidence</a> remains with Core.</p>
+    <p class="method-note">Measured July 30, 2026 with the native 2.0.2 engine executable. This is deliberately a basic release verification plus short load, not a claim about every repository, machine, or workload. <a href="https://github.com/Weavatrix/weavatrix-rust/blob/main/docs/benchmarks.md">Methodology and reproducible evidence</a> remain versioned with the engine; <a href="https://github.com/Weavatrix/weavatrix/blob/main/docs/benchmarks.md">installed-package evidence</a> remains with Core.</p>
   </section>
 
   <section id="roadmap">
@@ -277,6 +276,7 @@ never overwrites active policy.</span></pre>
     <p class="lead">The long-term direction is an evidence substrate for increasingly capable agents: a repository becomes a living model of code, intent, decisions, runtime signals, and verified outcomes. Models may change; durable evidence, explicit uncertainty, and human-controlled trust boundaries remain.</p>
     <div class="road">
       <div class="step now"><span class="tag">NOW · NATIVE · MIT</span><h3>Core 1.10.0</h3><p>The native MCP product: 44 network-free, source-read-only tools spanning repository graphs, impact, APIs, architecture, Git, search, semantics and memory. Install the same adapter from <a href="https://crates.io/crates/weavatrix">Cargo</a> or <a href="https://www.npmjs.com/package/weavatrix">npm</a>.</p></div>
+      <div class="step now"><span class="tag">NOW · SEARCH EVIDENCE · MIT</span><h3>SEO 0.6.2</h3><p>Fifteen MCP tools and a CLI over a revision-bound Search Evidence Graph. Audit the live site, name the producer, keep missing evidence unmeasured. <a href="/seo">Product</a> · <a href="https://www.npmjs.com/package/weavatrix-seo">npm</a>.</p></div>
       <div class="step now"><span class="tag">NOW · ENGINE · MIT</span><h3>Rust engine 2.9.0</h3><p>The protocol-independent library beneath Core: 44 bounded operations across 24 repository surfaces, with no MCP server hidden in the engine. <a href="https://github.com/Weavatrix/weavatrix-rust">Source</a> · <a href="https://crates.io/crates/weavatrix-rust">crates.io</a>.</p></div>
       <div class="step now"><span class="tag">NOW · WRITE LAYER · MIT</span><h3>Refactor 1.0.11</h3><p>Eleven evidence-backed refactoring methods, a measured rename-only profile, write-gated crash-recoverable apply and drift-checked rollback. <a href="https://github.com/Weavatrix/weavatrix-refactor">Source</a> · <a href="https://www.npmjs.com/package/weavatrix-refactor">npm</a>.</p></div>
       <div class="step now"><span class="tag">NOW · NETWORK LAYER · MIT</span><h3>Online 0.3.2</h3><p>Seven explicit network methods for advisory refresh, malware review, architecture contracts and preview-confirmed source-free sync—without silently bundling Core or Refactor. <a href="https://github.com/Weavatrix/weavatrix-online">Source</a> · <a href="https://www.npmjs.com/package/weavatrix-online">npm</a>.</p></div>
@@ -286,10 +286,7 @@ never overwrites active policy.</span></pre>
     </div>
   </section>
 
-  <footer>
-    <div>© 2026 Weavatrix · Core: <a href="/license">MIT</a> · Refactor: <a href="https://github.com/Weavatrix/weavatrix-refactor/blob/main/LICENSE">MIT</a> · Online: <a href="https://github.com/Weavatrix/weavatrix-online/blob/main/LICENSE.md">MIT</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a></div>
-    <div><a href="/ecosystem">Open-source ecosystem</a> · built with Weavatrix &middot; <a href="/settings">Settings</a></div>
-  </footer>
+  <footer><div>© 2026 Weavatrix · Core: <a href="/license">MIT</a> · SEO: <a href="/seo">0.6.2</a> · Refactor: <a href="https://github.com/Weavatrix/weavatrix-refactor/blob/main/LICENSE">MIT</a> · Online: <a href="https://github.com/Weavatrix/weavatrix-online/blob/main/LICENSE.md">MIT</a> · <a href="/privacy">Privacy</a> · <a href="/security">Security</a></div><div><a href="/ecosystem">Open-source ecosystem</a> · built with Weavatrix &middot; <a href="/settings">Settings</a></div></footer>
 </div>
 
 <script src="/hero-field.js?v=0.3.9-hero-field-1"></script>
